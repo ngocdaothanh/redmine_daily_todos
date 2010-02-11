@@ -1,0 +1,44 @@
+<h2>Daily Reports</h2>
+
+User: <%= @user.name %>
+
+<div>
+  <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
+  <%= button_to_function('View', "window.location = '/daily_reports/#{@user.id}/' + $('date').value") %>
+</div>
+
+<table class="list">
+  <tr>
+    <th align="left" width="5%">Date</th>
+    <th align="left">Plan</th>
+    <th align="left" width="15%">Lunch</th>
+    <th align="left">Reality</th>
+    <th align="left">Next Plan</th>
+    <% if @user == User.current %>
+      <th></th>
+    <% end %>
+  </tr>
+<% @reports.each do |report| %>
+  <tr>
+    <td><%= report.date %></td>
+    <td><%= report.plan %></td>
+    <td>
+      <%= report.lunch_begin.strftime("%H:%M") if report.lunch_begin %><br />
+      <%= report.lunch_end.strftime("%H:%M") if report.lunch_end %>
+    </td>
+    <td><%= report.reality %></td>
+    <td><%= report.next_plan %></td>
+    <% if @user == User.current %>
+      <td align="center">
+        <% if report.new_record? %>
+          <%= link_to('Create', {:action => 'new', :date => report.date}) %>
+        <% else %>
+          <%= link_to('Edit', edit_daily_report_path(report)) %><br />
+          <%= button_to('Delete', {:action => 'delete', :id => report.id},
+                :confirm => 'Are you sure?', :method => :delete) %>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

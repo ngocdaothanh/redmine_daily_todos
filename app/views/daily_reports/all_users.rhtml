@@ -1,0 +1,38 @@
+<h2>Daily Reports</h2>
+
+<div>
+  <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
+  <%= button_to_function('View', "window.location = '/daily_reports/all_users/' + $('date').value") %>
+</div>
+
+<% if @reports.empty? %>
+  <em>
+    <% if @this_date == Date.today %>
+      Nobody wrote report for today yet.
+    <% else %>
+      No report.
+    <% end %>
+  </em>
+<% else %>
+  <table class="list">
+    <tr>
+      <th align="left" width="15%">User</th>
+      <th align="left">Plan</th>
+      <th align="left" width="5%">Lunch</th>
+      <th align="left">Reality</th>
+      <th align="left">Next Plan</th>
+    </tr>
+  <% @reports.each do |report| %>
+    <tr>
+      <td><%= link_to(report.user.name, {:action => 'one_user', :user_id => report.user_id, :date => report.date}) %></td>
+      <td><%= report.plan %></td>
+      <td>
+        <%= report.lunch_begin.strftime("%H:%M") %><br />
+        <%= report.lunch_end.strftime("%H:%M") %>
+      </td>
+      <td><%= report.reality %></td>
+      <td><%= report.next_plan %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
