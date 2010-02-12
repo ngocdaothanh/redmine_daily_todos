@@ -15,17 +15,18 @@ class DailyReportsController < ApplicationController
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     reports = DailyReport.all(
       :conditions => ["user_id = ? AND (date <= ? AND date >= ?)", params[:user_id], @date, @date - ONE_MONTH],
-      :order      => 'date DESC'
+      :order      => 'date ASC'  # ASC because "range" below is increasing
     )
 
+    range = (@date - ONE_MONTH)..@date
     @reports = if reports.empty?
-      ((@date - ONE_MONTH)..@date).map do |date|
+      range.map do |date|
         DailyReport.new(:user_id => @user.id, :date => date)
       end
     else
       i = 0
-      ((@date - ONE_MONTH)..@date).map do |date|
-        if i >= reports.size || date < reports[i].date
+      range.map do |date|
+        if i >= reports.size || date > reports[i].date
           DailyReport.new(:user_id => @user.id, :date => date)
         else
           i += 1
@@ -38,22 +39,27 @@ class DailyReportsController < ApplicationController
   end
 
   def new
-    @date = (params[:date])? Date.parse(params[:date]) : Date.today
-    @report = Report.new(:date => date)
+    date = (params[:date])? Date.parse(params[:date]) : Date.today
+    @report = DailyReport.new(:date => date)
   end
   
   def create
-    @report = Report.new(params[:report])
-    @report.user_id
+    # Avoid mass assignment
+    pdr = params[:daily_report]
+    @report = DailyReport.new(pdr)
+    @report.user_id     = User.current.id
+    @report.lunch_begin = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_begin(4i)'], pdr['lunch_begin(5i)'])
+    @report.lunch_end   = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_end(4i)'], pdr['lunch_end(5i)'])
+
     if @report.save
-      redirect_to(:action => 'one_user', :date => @report.date)
+      redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @report.date)
     else
       render :action => 'new'
     end
   end
   
   def edit
-    @report = Report.find(params[:id])
+    @report = DailyReport.find(params[:id])
     if @report.user_id != User.current.id
       flash[:error] = "You cannot edit other's report"
       redirect_to(:action => 'one_user', :user_id => User.current.id)   
@@ -61,21 +67,22 @@ class DailyReportsController < ApplicationController
   end
   
   def update
-    @report = Report.find(params[:id])
+    @report = DailyReport.find(params[:id])
     if @report.user_id != User.current.id
       flash[:error] = "You cannot update other's report"
       redirect_to(:action => 'one_user', :user_id => User.current.id)
     else
       # Avoid mass assignment
-      @report.date        = params[:report][:date]
-      @report.plan        = params[:report][:plan]
-      @report.lunch_begin = params[:report][:lunch_begin]
-      @report.lunch_end   = params[:report][:lunch_end]
-      @report.reality     = params[:report][:reality]
-      @report.next_plan   = params[:report][:next_plan]
+      # Do not allow "date" to be updated
+      pdr = params[:daily_report]
+      @report.plan        = pdr[:plan]
+      @report.lunch_begin = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_begin(4i)'], pdr['lunch_begin(5i)'])
+      @report.lunch_end   = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_end(4i)'], pdr['lunch_end(5i)'])
+      @report.reality     = pdr[:reality]
+      @report.next_plan   = pdr[:next_plan]
 
       if @report.save
-        redirect_to(:action => 'one_user', :date => @report.date)
+        redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @report.date)
       else
         render :action => 'edit'
       end
@@ -83,7 +90,7 @@ class DailyReportsController < ApplicationController
   end
   
   def delete
-    report = Report.find(params[:id])
+    report = DailyReport.find(params[:id])
     if report.user_id != User.current.id
       flash[:error] = "You cannot delete other's report"
     else

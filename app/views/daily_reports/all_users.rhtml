@@ -14,25 +14,27 @@
     <% end %>
   </em>
 <% else %>
-  <table class="list">
-    <tr>
-      <th align="left" width="15%">User</th>
-      <th align="left">Plan</th>
-      <th align="left" width="5%">Lunch</th>
-      <th align="left">Reality</th>
-      <th align="left">Next Plan</th>
-    </tr>
-  <% @reports.each do |report| %>
-    <tr>
-      <td><%= link_to(report.user.name, {:action => 'one_user', :user_id => report.user_id, :date => report.date}) %></td>
-      <td><%= report.plan %></td>
-      <td>
-        <%= report.lunch_begin.strftime("%H:%M") %><br />
-        <%= report.lunch_end.strftime("%H:%M") %>
-      </td>
-      <td><%= report.reality %></td>
-      <td><%= report.next_plan %></td>
-    </tr>
-  <% end %>
-  </table>
+  <div class="wiki">
+    <table class="list">
+      <tr>
+        <th width="15%">User</th>
+        <th width="25%">Plan</th>
+        <th width="5%">Lunch</th>
+        <th width="25%">Reality</th>
+        <th width="25%">Next Plan</th>
+      </tr>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= link_to(report.user.name, {:action => 'one_user', :user_id => report.user_id, :date => report.date}) %></td>
+        <td><%= report.plan %></td>
+        <td>
+          <%= report.lunch_begin.strftime("%H:%M") %><br />
+          <%= report.lunch_end.strftime("%H:%M") %>
+        </td>
+        <td><%= report.reality %></td>
+        <td><%= report.next_plan %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
 <% end %>

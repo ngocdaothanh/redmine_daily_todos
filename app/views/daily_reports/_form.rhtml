@@ -1,0 +1,32 @@
+Date: <%= @report.date %>
+
+<% form_for(@report) do |f| %>
+  <%= f.hidden_field(:date) %>
+
+  <div class="wiki">
+    <table class="list">
+      <tr>
+        <th width="29%">Plan</th>
+        <th>Lunch</th>
+        <th width="29%">Reality</th>
+        <th width="29%">Next Plan</th>
+      </tr>
+      <tr>
+        <td><%= f.text_area(:plan, :style => 'width: 100%', :rows => 10) %></td>
+        <td>
+          <%= f.time_select(:lunch_begin) %><br />
+          <%= f.time_select(:lunch_end) %>
+        </td>
+        <td><%= f.text_area(:reality, :style => 'width: 100%', :rows => 10) %></td>
+        <td><%= f.text_area(:next_plan, :style => 'width: 100%', :rows => 10) %></td>
+      </tr>
+    </table>
+  </div>
+
+  <% if @report.new_record? %>
+    <%= link_to('Cancel', {:action => 'one_user', :user_id => User.current.id}) %>
+  <% else %>
+    <%= link_to('Cancel', {:action => 'one_user', :user_id => User.current.id, :date => @report.date}) %>
+  <% end %>
+  <%= submit_tag('Save') %>
+<% end %>
