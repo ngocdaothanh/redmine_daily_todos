@@ -3,6 +3,10 @@
 <div>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
   <%= button_to_function('View', "window.location = '/daily_reports/all_users/' + $('date').value") %>
+
+  <% unless @reported %>
+    <p>You did not report for this date, <%= link_to('click here to create', :action => 'new', :date => @date.to_s) %>.</p>
+  <% end %>
 </div>
 
 <% if @reports.empty? %>
@@ -26,13 +30,13 @@
     <% @reports.each do |report| %>
       <tr>
         <td><%= link_to(report.user.name, {:action => 'one_user', :user_id => report.user_id, :date => report.date}) %></td>
-        <td><%= report.plan %></td>
+        <td><%= textilizable report.plan %></td>
         <td>
-          <%= report.lunch_begin.strftime("%H:%M") %><br />
-          <%= report.lunch_end.strftime("%H:%M") %>
+          <%= report.lunch.strftime("%H:%M") %><br />
+          <%= (report.lunch + DailyReport::LUNCH).strftime("%H:%M") %>
         </td>
-        <td><%= report.reality %></td>
-        <td><%= report.next_plan %></td>
+        <td><%= textilizable report.reality %></td>
+        <td><%= textilizable report.next_plan %></td>
       </tr>
     <% end %>
     </table>

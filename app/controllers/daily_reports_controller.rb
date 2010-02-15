@@ -8,6 +8,9 @@ class DailyReportsController < ApplicationController
   def all_users
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     @reports = DailyReport.all(:conditions => {:date => @date}, :order => 'user_id DESC')
+    
+    # Check if the current user has reported for this date
+    @reported = @reports.any? { |report| report.user_id == User.current.id }
   end
 
   def one_user
@@ -19,14 +22,14 @@ class DailyReportsController < ApplicationController
     )
 
     range = (@date - ONE_MONTH)..@date
-    @reports = if reports.empty?
+      @reports = if reports.empty?
       range.map do |date|
         DailyReport.new(:user_id => @user.id, :date => date)
       end
     else
       i = 0
       range.map do |date|
-        if i >= reports.size || date > reports[i].date
+        if  i >= reports.size || date < reports[i].date
           DailyReport.new(:user_id => @user.id, :date => date)
         else
           i += 1
@@ -40,21 +43,33 @@ class DailyReportsController < ApplicationController
 
   def new
     date = (params[:date])? Date.parse(params[:date]) : Date.today
-    @report = DailyReport.new(:date => date)
+    reported = (DailyReport.find(:first, :conditions => {:user_id => User.current.id, :date => date}) != nil)
+    if reported
+      flash[:error] = 'You have reported for this date'
+      redirect_to(:action => 'one_user', :user_id => User.current.id, :date => date)
+    else
+      @report = DailyReport.new(:date => date) unless @reported
+    end
   end
   
   def create
     # Avoid mass assignment
     pdr = params[:daily_report]
     @report = DailyReport.new(pdr)
-    @report.user_id     = User.current.id
-    @report.lunch_begin = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_begin(4i)'], pdr['lunch_begin(5i)'])
-    @report.lunch_end   = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_end(4i)'], pdr['lunch_end(5i)'])
 
-    if @report.save
+    reported = (DailyReport.find(:first, :conditions => {:user_id => User.current.id, :date => @report.date}) != nil)
+    if reported
+      flash[:error] = 'You have reported for this date'
       redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @report.date)
     else
-      render :action => 'new'
+      @report.user_id     = User.current.id
+      @report.lunch = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
+
+      if @report.save
+        redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @report.date)
+      else
+        render :action => 'new'
+      end
     end
   end
   
@@ -76,8 +91,7 @@ class DailyReportsController < ApplicationController
       # Do not allow "date" to be updated
       pdr = params[:daily_report]
       @report.plan        = pdr[:plan]
-      @report.lunch_begin = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_begin(4i)'], pdr['lunch_begin(5i)'])
-      @report.lunch_end   = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch_end(4i)'], pdr['lunch_end(5i)'])
+      @report.lunch = Time.mktime(@report.date.year, @report.date.month, @report.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
       @report.reality     = pdr[:reality]
       @report.next_plan   = pdr[:next_plan]
 

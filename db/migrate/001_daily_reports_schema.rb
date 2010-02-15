@@ -4,8 +4,7 @@ class DailyReportsSchema < ActiveRecord::Migration
       t.integer :user_id
       t.date    :date
       t.text    :plan
-      t.time    :lunch_begin
-      t.time    :lunch_end
+      t.time    :lunch
       t.text    :reality
       t.text    :next_plan
     end

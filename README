@@ -1,2 +1,9 @@
 Plugin for Redmine to write daily reports/notes. It is probably helpful for
 normal company that need to share daily working information among emplyees.
+
+To install:
+* Put this plugin to Redmine's vendor/plugins directory
+* Run rake db:migrate_plugins to create DB table for this plugin
+
+For more information about Redmine's plugin:
+http://www.redmine.org/wiki/redmine/Plugins

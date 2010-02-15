@@ -12,13 +12,10 @@ Date: <%= @report.date %>
         <th width="29%">Next Plan</th>
       </tr>
       <tr>
-        <td><%= f.text_area(:plan, :style => 'width: 100%', :rows => 10) %></td>
-        <td>
-          <%= f.time_select(:lunch_begin) %><br />
-          <%= f.time_select(:lunch_end) %>
-        </td>
-        <td><%= f.text_area(:reality, :style => 'width: 100%', :rows => 10) %></td>
-        <td><%= f.text_area(:next_plan, :style => 'width: 100%', :rows => 10) %></td>
+        <td><%= f.text_area(:plan, :style => 'width: 100%', :rows => 15, :class => 'wiki-edit') %></td>
+        <td align="center"><%= f.time_select(:lunch) %></td>
+        <td><%= f.text_area(:reality, :style => 'width: 100%', :rows => 15, :class => 'wiki-edit') %></td>
+        <td><%= f.text_area(:next_plan, :style => 'width: 100%', :rows => 15, :class => 'wiki-edit') %></td>
       </tr>
     </table>
   </div>
@@ -30,3 +27,7 @@ Date: <%= @report.date %>
   <% end %>
   <%= submit_tag('Save') %>
 <% end %>
+
+<%= wikitoolbar_for 'daily_report_plan' %>
+<%= wikitoolbar_for 'daily_report_reality' %>
+<%= wikitoolbar_for 'daily_report_next_plan' %>

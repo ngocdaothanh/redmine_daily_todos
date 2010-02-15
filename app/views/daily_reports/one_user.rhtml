@@ -3,6 +3,7 @@
 User: <%= @user.name %>
 
 <div>
+  <%= button_to_function('Today', "window.location = '/daily_reports/one_user/#{@user.id}/' + #{@date}") %>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
   <%= button_to_function('View', "window.location = '/daily_reports/one_user/#{@user.id}/' + $('date').value") %>
 </div>
@@ -22,13 +23,13 @@ User: <%= @user.name %>
   <% @reports.each do |report| %>
     <tr>
       <td><%= report.date %></td>
-      <td><%= report.plan %></td>
+      <td><%= textilizable report.plan %></td>
       <td>
-        <%= report.lunch_begin.strftime("%H:%M") if report.lunch_begin %><br />
-        <%= report.lunch_end.strftime("%H:%M") if report.lunch_end %>
+        <%= report.lunch.strftime("%H:%M") if report.lunch %><br />
+        <%= (report.lunch + DailyReport::LUNCH).strftime("%H:%M") if report.lunch %>
       </td>
-      <td><%= report.reality %></td>
-      <td><%= report.next_plan %></td>
+      <td><%= textilizable report.reality %></td>
+      <td><%= textilizable report.next_plan %></td>
       <% if @user == User.current %>
         <td align="center">
           <% if report.new_record? %>
