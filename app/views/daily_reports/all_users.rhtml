@@ -1,31 +1,28 @@
-<h2>Daily Reports</h2>
+<h2><%=l(:'daily_reports.title')%></h2>
 
 <div>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
-  <%= button_to_function('View', "window.location = '/daily_reports/all_users/' + $('date').value") %>
+  <%= button_to_function (l(:'daily_reports.view'), "window.location = '/daily_reports/all_users/' + $('date').value") %>
 
   <% unless @reported %>
-    <p>You did not report for this date, <%= link_to('click here to create', :action => 'new', :date => @date.to_s) %>.</p>
+    <p>
+      <%=l(:'daily_reports.you_no_report')%>
+      <%= link_to l(:'daily_reports.create_link'), :action => 'new', :date => @date.to_s %>
+    </p>
   <% end %>
 </div>
 
 <% if @reports.empty? %>
-  <em>
-    <% if @this_date == Date.today %>
-      Nobody wrote report for today yet.
-    <% else %>
-      No report.
-    <% end %>
-  </em>
+  <em><%=l(:'daily_reports.no_report')%></em>
 <% else %>
   <div class="wiki">
     <table class="list">
       <tr>
-        <th width="15%">User</th>
-        <th width="25%">Plan</th>
-        <th width="5%">Lunch</th>
-        <th width="25%">Reality</th>
-        <th width="25%">Next Plan</th>
+        <th width="15%"><%=l(:'daily_reports.user')%></th>
+        <th width="25%"><%=l(:'daily_reports.plan')%></th>
+        <th width="5%"><%=l(:'daily_reports.lunch')%></th>
+        <th width="25%"><%=l(:'daily_reports.reality')%></th>
+        <th width="25%"><%=l(:'daily_reports.next_plan')%></th>
       </tr>
     <% @reports.each do |report| %>
       <tr>

@@ -1,21 +1,20 @@
-<h2>Daily Reports</h2>
+<h2><%=l(:'daily_reports.title')%></h2>
 
-User: <%= @user.name %>
+<%=l(:'daily_reports.user')%>: <%= @user.name %>
 
 <div>
-  <%= button_to_function('Today', "window.location = '/daily_reports/one_user/#{@user.id}/' + #{@date}") %>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
-  <%= button_to_function('View', "window.location = '/daily_reports/one_user/#{@user.id}/' + $('date').value") %>
+  <%= button_to_function(l(:'daily_reports.view'), "window.location = '/daily_reports/one_user/#{@user.id}/' + $('date').value") %>
 </div>
 
 <div class="wiki">
   <table class="list">
     <tr>
-      <th width="5%">Date</th>
-      <th width="25%">Plan</th>
-      <th width="5%">Lunch</th>
-      <th width="25%">Reality</th>
-      <th width="25%">Next Plan</th>
+      <th width="5%"><%=l(:'daily_reports.date')%></th>
+      <th width="25%"><%=l(:'daily_reports.plan')%></th>
+      <th width="5%"><%=l(:'daily_reports.lunch')%></th>
+      <th width="25%"><%=l(:'daily_reports.reality')%></th>
+      <th width="25%"><%=l(:'daily_reports.next_plan')%></th>
       <% if @user == User.current %>
         <th></th>
       <% end %>
@@ -33,11 +32,11 @@ User: <%= @user.name %>
       <% if @user == User.current %>
         <td align="center">
           <% if report.new_record? %>
-            <%= link_to('New', {:action => 'new', :date => report.date}) %>
+            <%= link_to(l(:'daily_reports.new'), {:action => 'new', :date => report.date}) %>
           <% else %>
-            <%= link_to('Edit', edit_daily_report_path(report)) %>
-            <%= button_to('Delete', {:action => 'delete', :id => report.id},
-                  :confirm => 'Are you sure?', :method => :delete) %>
+            <%= link_to(l(:'daily_reports.edit'), edit_daily_report_path(report)) %>
+            <%= button_to(l(:'daily_reports.delete'), {:action => 'delete', :id => report.id},
+                  :confirm => l(:'daily_reports.delete_confirm'), :method => :delete) %>
           <% end %>
         </td>
       <% end %>

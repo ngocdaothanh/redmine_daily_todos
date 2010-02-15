@@ -1,0 +1,19 @@
+en:
+  daily_reports:
+    user: User
+    plan: Plan
+    reality: Reality
+    next_plan: Next Plan
+    lunch: Lunch
+    button_save: Save
+    cancel: Cancel
+    title: Daily Reports
+    view: View
+    you_no_report: You have no report for this date.
+    create_link: Click here to create.
+    no_report: No report.
+    date: Date
+    new: New
+    edit: Edit
+    delete: Delete
+    delete_confirm: Are you sure?

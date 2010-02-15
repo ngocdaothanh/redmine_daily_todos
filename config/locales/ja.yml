@@ -1,0 +1,19 @@
+ja:
+  daily_reports:
+    user: ユーザー
+    plan: 予定
+    reality: 実際
+    next_plan: 次の予定
+    lunch: 昼休憩
+    button_save: 保存
+    cancel: キャンセル
+    title: 日次報告
+    view: 見る
+    you_no_report: あなたの報告はありません。
+    create_link: ここをクリックしてください。
+    no_report: 報告はありません。
+    date: 日付
+    new: 新規作成
+    edit: 編集
+    delete: 削除
+    delete_confirm: 削除してよろしいですか?

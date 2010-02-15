@@ -1,0 +1,19 @@
+vi:
+  daily_reports:
+    user: Người dùng
+    plan: Kế hoạch
+    reality: Thực hiện
+    next_plan: Kế hoạch tiếp theo
+    lunch: Nghỉ trưa
+    button_save: Lưu
+    cancel: Hủy
+    title: Báo cáo hàng ngày
+    view: Xem
+    you_no_report: Bạn không có báo cáo nào trong ngày này.
+    create_link: Nhấp vào đây để tạo mới.
+    no_report: Không có báo cáo.
+    date: Ngày
+    new: Tạo mới
+    edit: Sửa
+    delete: Xóa
+    delete_confirm: Bạn muốn xóa báo cáo này?
