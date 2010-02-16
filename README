@@ -1,5 +1,12 @@
-Plugin for Redmine to write daily reports/notes. It is probably helpful for
+Plugin for Redmine to write daily personal TODOs. It is probably helpful for
 normal company that need to share daily working information among emplyees.
+
+The differents between daily TODOs and normal Redmine issues (tickets):
+* Issues are project-centric
+* TODOs are user-centric and less concrete
+
+The differents between daily TODOs and normal TODO:
+* You write daily TODOs everyday
 
 To install:
 * Put this plugin to Redmine's vendor/plugins directory

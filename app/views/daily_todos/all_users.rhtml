@@ -1,0 +1,46 @@
+<h2><%=l(:'daily_todos.title')%></h2>
+
+<div>
+  <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
+  <%= button_to_function (l(:'daily_todos.view'), "window.location = '/daily_todos/all_users/' + $('date').value") %>
+
+  <% unless @reported %>
+    <p>
+      <%=l(:'daily_todos.you_no_todo')%>
+      <%= link_to l(:'daily_todos.create_link'), :action => 'new', :date => @date.to_s %>
+    </p>
+  <% end %>
+</div>
+
+<% if @todos.empty?  %>
+  <em><%=l(:'daily_todos.no_todo')%></em>
+<% else %>
+  <div class="wiki">
+    <table class="list">
+      <tr>
+        <th width="15%"><%=l(:'daily_todos.user')%></th>
+        <th width="30%"><%=l(:'daily_todos.plan')%></th>
+        <th width="15%"><%=l(:'daily_todos.time')%></th>
+        <th width="30%"><%=l(:'daily_todos.result')%></th>
+      </tr>
+    <% @todos.each do |todo| %>
+      <% unless todo.daily_todo_entries.empty? %>
+        <tr>
+          <td>
+            <%= link_to(todo.user.name, {:action => 'one_user', :user_id => todo.user_id, :date => todo.date}) %><br />
+            <%=l(:'daily_todos.lunch')%>:
+            <%= todo.lunch.strftime("%H:%M") %> -
+            <%= (todo.lunch. + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
+          </td>
+          <td><%= textilizable todo.daily_todo_entries[0].plan %></td>
+          <td>
+            <%= todo.daily_todo_entries[0].begin.strftime("%H:%M") %> -
+            <%= todo.daily_todo_entries[0].end.strftime("%H:%M") %>
+          </td>
+          <td><%= textilizable todo.daily_todo_entries[0].result %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </table>
+  </div>
+<% end %>

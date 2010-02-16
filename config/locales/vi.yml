@@ -1,5 +1,5 @@
 vi:
-  daily_reports:
+  daily_todos:
     user: Người dùng
     plan: Kế hoạch
     reality: Thực hiện
@@ -9,9 +9,9 @@ vi:
     cancel: Hủy
     title: Báo cáo hàng ngày
     view: Xem
-    you_no_report: Bạn không có báo cáo nào trong ngày này.
+    you_no_todo: Bạn không có báo cáo nào trong ngày này.
     create_link: Nhấp vào đây để tạo mới.
-    no_report: Không có báo cáo.
+    no_todo: Không có báo cáo.
     date: Ngày
     new: Tạo mới
     edit: Sửa

@@ -1,0 +1,58 @@
+<h2><%=l(:'daily_todos.title')%></h2>
+
+<%=l(:'daily_todos.user')%>: <%= @user.name %>
+
+<div>
+  <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
+  <%= button_to_function(l(:'daily_todos.view'), "window.location = '/daily_todos/one_user/#{@user.id}/' + $('date').value") %>
+</div>
+
+<div class="wiki">
+  <table class="list">
+    <tr>
+      <th width="20%"><%=l(:'daily_todos.date')%></th>
+      <th width="30%"><%=l(:'daily_todos.plan')%></th>
+      <th width="10%"><%=l(:'daily_todos.time')%></th>
+      <th width="30%"><%=l(:'daily_todos.result')%></th>
+      <% if @user == User.current %>
+        <th></th>
+      <% end %>
+    </tr>
+    
+    <% @todos.each do |todo| %>
+      <% unless todo.daily_todo_entries.empty? %>
+        <tr>
+          <td valign="middle" rowspan="<%= todo.daily_todo_entries.size %>">
+            <%= todo.date %><br >
+            <%=l(:'daily_todos.lunch')%>:
+            <%= todo.lunch.strftime("%H:%M") if todo.lunch %>-
+            <%= (todo.lunch + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
+          </td>
+        
+        <% todo.daily_todo_entries.each_with_index do |daily_todo_entry, i| %>
+          <% if i > 0 %>
+          <tr>
+          <% end %>
+            <td><%= textilizable daily_todo_entry.plan %></td>
+            <td>
+              <%= daily_todo_entry.begin.strftime("%H:%M") if daily_todo_entry.begin %>~
+              <%= daily_todo_entry.end.strftime("%H:%M") if daily_todo_entry.end %><br />
+            </td>
+            <td><%= textilizable daily_todo_entry.result %></td>
+            <% if @user == User.current %>
+              <td align="center">
+                <% if todo.new_record? %>
+                  <%= link_to(l(:'daily_todos.new'), {:action => 'new', :date => todo.date}) %>
+                <% else %>
+                  <%= link_to(l(:'daily_todos.edit'), edit_daily_todo_path(todo)) %>
+                  <%= button_to(l(:'daily_todos.delete'), {:action => 'delete', :id => todo.id},
+                        :confirm => l(:'daily_todos.delete_confirm'), :method => :delete) %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+</div>

@@ -1,5 +1,5 @@
 ja:
-  daily_reports:
+  daily_todos:
     user: ユーザー
     plan: 予定
     reality: 実際
@@ -9,9 +9,9 @@ ja:
     cancel: キャンセル
     title: 日次報告
     view: 見る
-    you_no_report: あなたの報告はありません。
+    you_no_todo: あなたの報告はありません。
     create_link: ここをクリックしてください。
-    no_report: 報告はありません。
+    no_todo: 報告はありません。
     date: 日付
     new: 新規作成
     edit: 編集
