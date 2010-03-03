@@ -1,0 +1,11 @@
+<% form_for(@comment) do |f| %>
+  <div class="wiki">
+    <td><%= f.text_area(:body, :style => 'width: 100%', :rows => 10, :class => 'wiki-edit') %></td>
+    <%= f.hidden_field(:daily_todo_id) %>
+    <%= link_to l(:'daily_todos.cancel'), {:controller => 'daily_todos', :action => 'one_user', :user_id => @comment.daily_todo.user_id} %>
+    <%= submit_tag l(:button_save) %>
+  </div>
+<% end %> 
+
+<%= wikitoolbar_for 'daily_todo_comment_body' %>
+

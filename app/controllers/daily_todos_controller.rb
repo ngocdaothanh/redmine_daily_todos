@@ -1,7 +1,8 @@
 class DailyTodosController < ApplicationController
-  ONE_MONTH = 31
-
+  # Avoid "A copy of ApplicationController has been removed from the module tree but is still active!"
   unloadable
+
+  ONE_WEEK = 7
 
   before_filter :require_login
 
@@ -17,11 +18,11 @@ class DailyTodosController < ApplicationController
     @user = User.find(params[:user_id])
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     todos = DailyTodo.all(
-      :conditions => ["user_id = ? AND (date <= ? AND date >= ?)", params[:user_id], @date, @date - ONE_MONTH],
+      :conditions => ["user_id = ? AND (date <= ? AND date >= ?)", params[:user_id], @date, @date - ONE_WEEK],
       :order      => 'date ASC'  # ASC because "range" below is increasing
     )
 
-    range = (@date - ONE_MONTH)..@date
+    range = (@date - ONE_WEEK)..@date
       @todos = if todos.empty?
       range.map do |date|
         DailyTodo.new(:user_id => @user.id, :date => date)
@@ -41,78 +42,37 @@ class DailyTodosController < ApplicationController
     @todos.reverse!
   end
 
-  def new
+  def create_todo
     date = (params[:date])? Date.parse(params[:date]) : Date.today
+    time = Time.now
     reported = (DailyTodo.find(:first, :conditions => {:user_id => User.current.id, :date => date}) != nil)
     if reported
-      flash[:error] = 'You have written todo for this date'
+      flash[:error] = l(:'daily_todos.todo_create_error')
       redirect_to(:action => 'one_user', :user_id => User.current.id, :date => date)
     else
-      @todo = DailyTodo.new(:date => date) unless @reported
-    end
-  end
-  
-  def create
-    # Avoid mass assignment
-    pdr = params[:daily_todo]
-    @todo = DailyTodo.new(pdr)
-
-    reported = (DailyTodo.find(:first, :conditions => {:user_id => User.current.id, :date => @todo.date}) != nil)
-    if reported
-      flash[:error] = 'You have written todo for this date'
-      redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @todo.date)
-    else
-      @todo.user_id     = User.current.id
-      @todo.lunch  = Time.mktime(@todo.date.year, @todo.date.month, @todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-      @todo.begin = Time.mktime(@todo.date.year, @todo.date.month, @todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-      @todo.end   = Time.mktime(@todo.date.year, @todo.date.month, @todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-      if @todo.save
-        redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @todo.date)
-      else
-        render :action => 'new'
-      end
-    end
-  end
-  
-  def edit
-    @todo = DailyTodo.find(params[:id])
-    if @todo.user_id != User.current.id
-      flash[:error] = "You cannot edit other's todo"
-      redirect_to(:action => 'one_user', :user_id => User.current.id)   
+      todo = DailyTodo.new(:date => date, :lunch => time, :user_id => User.current.id ) unless @reported
+      todo.save
+      redirect_to(:action => 'one_user', :user_id => User.current.id, :date => date)
     end
   end
   
   def update
     @todo = DailyTodo.find(params[:id])
-    if @todo.user_id != User.current.id
-      flash[:error] = "You cannot update other's todo"
-      redirect_to(:action => 'one_user', :user_id => User.current.id)
-    else
-      # Avoid mass assignment
-      # Do not allow "date" to be updated
-      pdr = params[:daily_todo]
-      @todo.plan        = pdr[:plan]
-      @todo.lunch = Time.mktime(@todo.date.year, @todo.date.month, @todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-      @todo.begin = Time.mktime(@todo.date.year, @todo.date.month, @todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-      @todo.end   = Time.mktime(@todo.date.year, @todo.date.month, @todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-      @todo.result     = pdr[:result]
-
-      if @todo.save
-        redirect_to(:action => 'one_user', :user_id => User.current.id, :date => @todo.date)
-      else
-        render :action => 'edit'
-      end
-    end
+    pdr = params[:daily_todo]
+    @todo.lunch  = Time.mktime(@todo.date.year, @todo.date.month,@todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
+    @todo.save
+    redirect_to(:action => 'one_user', :user_id => User.current.id)
   end
   
   def delete
     todo = DailyTodo.find(params[:id])
     if todo.user_id != User.current.id
-      flash[:error] = "You cannot delete other's todo"
+      flash[:error] = l(:'daily_todos.todo_delete_error')
     else
-      flash[:notice] = 'todo deleted'
+      flash[:notice] = l(:'daily_todos.todo_delete')
       todo.destroy
     end
     redirect_to(:action => 'one_user', :user_id => User.current.id)
   end
 end
+

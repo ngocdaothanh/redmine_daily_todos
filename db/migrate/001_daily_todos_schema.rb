@@ -15,9 +15,11 @@ class DailyTodosSchema < ActiveRecord::Migration
    end
    
    create_table :daily_todo_comments do |t|
-    t.integer :daily_todo_entry_id
-    t.integer :user_id
-    t.text    :body
+    t.integer   :daily_todo_id
+    t.integer   :user_id
+    t.text      :body
+    t.timestamp :created_at
+    t.timestamp :updated_at
    end
   end
   

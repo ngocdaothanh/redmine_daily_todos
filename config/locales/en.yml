@@ -1,11 +1,12 @@
 en:
   daily_todos:
     user: User
-    plan: Plan
+    plan: Todo
     result: Result
     lunch: Lunch
     time: Time
     button_save: Save
+    button_update: Update
     cancel: Cancel
     title: Daily Todos
     view: View
@@ -13,7 +14,23 @@ en:
     create_link: Click here to create.
     no_todo: No todo.
     date: Date
-    new: New
+    new_entry: New Entry
+    new_comment: New Comment
     edit: Edit
+    edit_entry: Edit Entry
+    edit_comment: Edit Comment
     delete: Delete
     delete_confirm: Are you sure?
+    comment: Comment 
+    add_entry: Add Entry  
+    comment_user: Comment User 
+    todo_delete: Todo deleted 
+    todo_delete_error: You cannot delete other's todo 
+    todo_create_error: You have written todo for this date
+    entry_create_error: You cannot create entry in the other's todo
+    entry_edit_error: You cannot edit other's entry
+    entry_delete: entry deleted
+    entry_delete_error: You cannot delete other's entry
+    login_notice: Please login
+    comment_edit_error: You cannot edit other's comment
+    comment_delete_error: You cannot delete other's comment

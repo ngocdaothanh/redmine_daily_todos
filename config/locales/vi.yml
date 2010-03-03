@@ -2,10 +2,11 @@ vi:
   daily_todos:
     user: Người dùng
     plan: Kế hoạch
-    reality: Thực hiện
-    next_plan: Kế hoạch tiếp theo
+    result: Kết quả
     lunch: Nghỉ trưa
+    time: Thời gian
     button_save: Lưu
+    button_update: Cập nhật
     cancel: Hủy
     title: Báo cáo hàng ngày
     view: Xem
@@ -13,7 +14,24 @@ vi:
     create_link: Nhấp vào đây để tạo mới.
     no_todo: Không có báo cáo.
     date: Ngày
-    new: Tạo mới
+    new_entry: Tạo mới Entry
+    new_comment: Tạo mới Comment
     edit: Sửa
+    edit_entry: Sửa Entry
+    edit_comment: Sửa Comment
     delete: Xóa
     delete_confirm: Bạn muốn xóa báo cáo này?
+    comment: Comment 
+    add_entry: Thêm Entry  
+    comment_user: Người comment 
+    todo_delete: Todo đã bị xóa 
+    todo_delete_error: Bạn không thể xóa todo của người khác. 
+    todo_create_error: Todo của ngày bạn chọn đã được tạo.
+    entry_create_error: Bạn không thể tạo entry cho todo của người khác.
+    entry_edit_error: Bạn không thể sửa entry của người khác.
+    entry_delete: Entry đã bị xóa
+    entry_delete_error: Bạn không thể xóa entry của người khác.
+    login_notice: Đăng nhập
+    comment_edit_error: Bạn không thể sửa comment của người khác.
+    comment_delete_error: Bạn không thể xóa comment của người khác.
+    comment_delete: Comment đã bị xóa
