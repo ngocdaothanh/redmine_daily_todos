@@ -12,7 +12,7 @@ en:
     view: View
     you_no_todo: You have no todo for this date.
     create_link: Click here to create.
-    no_todo: No todo.
+    no_todo: No TODO.
     date: Date
     new_entry: New Entry
     new_comment: New Comment
@@ -34,3 +34,5 @@ en:
     login_notice: Please login
     comment_edit_error: You cannot edit other's comment
     comment_delete_error: You cannot delete other's comment
+    users_who_have_created_todo: Users who have created TODO
+    users_who_have_not_created_todo: Users who haven't created TODO yet

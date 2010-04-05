@@ -9,14 +9,15 @@
 
 <div class="wiki">
   <% @todos.each do |todo| %>
+    
     <% if todo.lunch %>
-      <h3>
+      <b>
         <%= todo.date %>
         <% if @user == User.current %>
           <%= link_to(l(:'daily_todos.delete'), { :action => "delete", :id => todo.id }, :confirm => 
           l(:'daily_todos.delete_confirm')) %>
         <% end %>
-      </h3>
+      </b>
       <% if @user == User.current %>
         <% form_for(todo) do |f| %>
           <%= f.hidden_field(:date) %>
@@ -35,22 +36,22 @@
       <table class="list">
         <tr>
           <th width="35%"><%=l(:'daily_todos.plan')%></th>
-          <th width="10%"><%=l(:'daily_todos.time')%></th>
+          <th width="15%"><%=l(:'daily_todos.time')%></th>
           <th width="35%"><%=l(:'daily_todos.result')%></th>
           <% if @user == User.current %>
-            <th width="20%"></th>
+            <th width="15%"></th>
           <% end %>
         </tr>
         <% todo.daily_todo_entries.each_with_index do |daily_todo_entry, i| %>
           <tr>
-            <td width="35%"><%= textilizable daily_todo_entry.plan %></td>
-            <td width="20%">
+            <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.plan %></td>
+            <td style="vertical-align:middle;width:15%;" align="center">
               <%= daily_todo_entry.begin.strftime("%H:%M") if daily_todo_entry.begin %> -
               <%= daily_todo_entry.end.strftime("%H:%M") if daily_todo_entry.end %><br />
             </td>
-            <td width="35%"><%= textilizable daily_todo_entry.result %></td>
+            <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.result %></td>
             <% if @user == User.current %>
-              <td align="center" width="20%">
+              <td style="vertical-align:middle;width:15%;" align="center">
                 <% if todo.new_record? %>
                   <%= link_to(l(:'daily_todos.new'), {:action => 'new', :date => todo.date}) %>
                 <% else %>
@@ -82,6 +83,15 @@
       </div>
       <br />
       <br />
+
+    <% else %>
+        <% if @user == User.current %>
+          <b><%= todo.date %>:</b>
+          <%= link_to l(:'daily_todos.create_link'), :action => 'create_todo', :date => todo.date.to_s %><br /><br /> 
+        <% else %>
+          <b><%= todo.date %>:</b>
+          <%= l(:'daily_todos.no_todo') %> <br /><br /> 
+        <% end %>
     <% end %>
   <% end %>
 </div>

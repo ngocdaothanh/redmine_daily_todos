@@ -60,4 +60,3 @@ class DailyTodoCommentsController < ApplicationController
     redirect_to(:controller => 'daily_todos', :action => 'one_user', :user_id => comment.daily_todo.user_id)
   end
 end
-

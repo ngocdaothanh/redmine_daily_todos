@@ -6,24 +6,34 @@ class DailyTodosController < ApplicationController
 
   before_filter :require_login
 
+  # Show TODOs of all active users.
   def all_users
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
-    @todos = DailyTodo.all(:conditions => {:date => @date}, :order => 'user_id DESC')
-    
+    users = User.all(:conditions => {:status => User::STATUS_ACTIVE}, :order => 'login')
+  # xxx
+    @no_todo_users, @todo_users = users.partition do |user|
+      DailyTodo.first(:conditions => {:user_id => user.id, :date => @date}).nil?
+    end
+
     # Check if the current user has written todo for this date
-    @reported = @todos.any? { |todo| todo.user_id == User.current.id }
+    @reported = @todo_users.any? { |user| user.id == User.current.id }
   end
 
+  # Shows TODOs within one week of a specified user.
+  #
+  # If there is no TODOs for a date:
+  # * If the current user is the specified user: display link to create TODOS for that date
+  # * Else shows that the user has not created TODOs for that date
   def one_user
     @user = User.find(params[:user_id])
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     todos = DailyTodo.all(
-      :conditions => ["user_id = ? AND (date <= ? AND date >= ?)", params[:user_id], @date, @date - ONE_WEEK],
-      :order      => 'date ASC'  # ASC because "range" below is increasing
+      :conditions => ["user_id = ? AND (date <= ? AND date >= ?)", params[:user_id], @date, @date - ONE_WEEK + 1],
+      :order      => 'date'  # ASC because "range" below is increasing
     )
 
-    range = (@date - ONE_WEEK)..@date
-      @todos = if todos.empty?
+    range = (@date - ONE_WEEK + 1)..@date
+    @todos = if todos.empty?
       range.map do |date|
         DailyTodo.new(:user_id => @user.id, :date => date)
       end

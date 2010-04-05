@@ -12,15 +12,18 @@
   <% end %>
 </div>
 
-<% if @todos.empty?  %>
-  <em><%=l(:'daily_todos.no_todo')%></em>
-<% else %>
-  <div class="wiki">
-    <ul>
-    <% @todos.each do |todo| %>
-      <li><%= link_to(todo.user.name, {:action => 'one_user', :user_id => todo.user_id, :date => todo.date}) %>
-      (entries: <%= todo.daily_todo_entries.size %>, comments: <%= todo.daily_todo_comments.size %>)</li><br />
-    <% end %>
-    </ul>
-  </div>
+<h3><%= l(:'daily_todos.users_who_have_created_todo') %></h3>
+
+<ol>
+<% @todo_users.each do |user| %>
+  <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
 <% end %>
+</ol>
+
+<h3><%= l(:'daily_todos.users_who_have_not_created_todo') %></h3>
+
+<ol>
+<% @no_todo_users.each do |user| %>
+  <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+<% end %>
+</ol>
