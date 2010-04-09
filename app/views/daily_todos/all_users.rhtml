@@ -1,5 +1,5 @@
 <h2><%=l(:'daily_todos.title')%></h2>
-
+<%= l(:'daily_todos.message') %>
 <div>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
   <%= button_to_function (l(:'daily_todos.view'), "window.location = '/daily_todos/all_users/' + $('date').value") %>
