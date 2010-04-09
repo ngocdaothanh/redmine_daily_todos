@@ -8,30 +8,40 @@ ja:
     button_save: 保存
     button_update: 更新
     cancel: キャンセル　
-    title: 日次のトゥドゥ
+    title: 日次のTODO
     view: 見る
-    you_no_todo: あなたのトゥドゥはありません。
+    you_no_todo: あなたのTODOはありません。
     create_link: ここをクリックしてください。
-    no_todo: トゥドゥがありません。
+    no_todo: TODOがありません。
     date: 日付
-    new_entry: 新規エントリ
-    new_comment: 新規コメント
     edit: 編集
-    edit_entry: エントリの編集
-    edit_comment: コメントの編集
     delete: 削除
     delete_confirm: 削除してよろしいですか?
     comment: コメント 
-    add_entry: エントリを追加  
     comment_user: コメントユーザー 
-    todo_delete:  トゥドゥが削除されました。
-    todo_delete_error: 他人のトゥドゥを削除することができません。
-    todo_create_error: この日、トゥドゥが作成されました。
-    entry_create_error: 他人のトゥドゥにエントリを作成することはできません。
-    entry_edit_error: 他人のエントリを編集することができません。
-    entry_delete: エントリが削除されました。
-    entry_delete_error: 他人のエントリを削除することができません。
+    users_who_have_created_todo: TODOを作ったユーザー
+    users_who_have_not_created_todo: TODOをまだ作らないユーザー
+    
+    todo:
+      delete:  TODOが削除されました。
+      delete_error: 他人のTODOを削除することができません。
+      create_error: この日、TODOが作成されました。
+
+    entry:
+      new: 新規エントリ
+      edit: エントリの編集
+      add: エントリを追加  
+      create_error: 他人のTODOにエントリを作成することはできません。
+      edit_error: 他人のエントリを編集することができません。
+      delete: エントリが削除されました。
+      delete_error: 他人のエントリを削除することができません。
+
+      
     login_notice: ログインしてください。
-    comment_edit_error: 他人のコメントを編集することができません。
-    comment_delete_error: 他人のコメントを削除することができません。
-    comment_delete: コメントが削除されました。
+
+    comment:
+      new: 新規コメント
+      edit: コメントの編集
+      edit_error: 他人のコメントを編集することができません。
+      delete_error: 他人のコメントを削除することができません。
+      delete: コメントが削除されました。

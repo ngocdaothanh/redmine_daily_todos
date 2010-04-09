@@ -2,8 +2,12 @@
   <div class="wiki">
     <%= f.text_area(:body, :style => 'width: 100%', :rows => 10, :class => 'wiki-edit') %>
     <%= f.hidden_field(:daily_todo_id) %>
-    <%= link_to l(:'daily_todos.cancel'), {:controller => 'daily_todos', :action => 'one_user', :user_id => @comment.daily_todo.user_id} %>
+
     <%= submit_tag l(:button_save) %>
+    <%= link_to l(:'daily_todos.cancel'), {
+          :controller => 'daily_todos',
+          :action     => 'one_user',
+          :user_id    => @comment.daily_todo.user_id} %>
   </div>
 <% end %> 
 

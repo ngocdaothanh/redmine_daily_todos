@@ -10,7 +10,6 @@ class DailyTodosController < ApplicationController
   def all_users
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     users = User.all(:conditions => {:status => User::STATUS_ACTIVE}, :order => 'login')
-  # xxx
     @no_todo_users, @todo_users = users.partition do |user|
       DailyTodo.first(:conditions => {:user_id => user.id, :date => @date}).nil?
     end
@@ -53,36 +52,40 @@ class DailyTodosController < ApplicationController
   end
 
   def create_todo
-    date = (params[:date])? Date.parse(params[:date]) : Date.today
-    time = Time.now
-    reported = (DailyTodo.find(:first, :conditions => {:user_id => User.current.id, :date => date}) != nil)
-    if reported
-      flash[:error] = l(:'daily_todos.todo_create_error')
-      redirect_to(:action => 'one_user', :user_id => User.current.id, :date => date)
-    else
-      todo = DailyTodo.new(:date => date, :lunch => time, :user_id => User.current.id ) unless @reported
-      todo.save
-      redirect_to(:action => 'one_user', :user_id => User.current.id, :date => date)
+    if request.post?
+      date = (params[:date])? Date.parse(params[:date]) : Date.today
+      time = Time.now
+      reported = (DailyTodo.find(:first, :conditions => {:user_id => User.current.id, :date => date}) != nil)
+      if reported
+        flash[:error] = l(:'daily_todos.todo.create_error')
+      else
+        todo = DailyTodo.new(:date => date, :lunch => time, :user_id => User.current.id )
+        todo.save
+      end
+      render :js => "window.location = '" + url_for(:action => 'one_user', :user_id => User.current.id, :date => date) + "'"
     end
   end
   
   def update
-    @todo = DailyTodo.find(params[:id])
-    pdr = params[:daily_todo]
-    @todo.lunch  = Time.mktime(@todo.date.year, @todo.date.month,@todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
-    @todo.save
-    redirect_to(:action => 'one_user', :user_id => User.current.id)
+    if request.put?
+      @todo = DailyTodo.find(params[:id])
+      pdr = params[:daily_todo]
+      @todo.lunch = Time.mktime(@todo.date.year, @todo.date.month,@todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
+      @todo.save
+      redirect_to(:action => 'one_user', :user_id => User.current.id)
+    end
   end
   
-  def delete
-    todo = DailyTodo.find(params[:id])
-    if todo.user_id != User.current.id
-      flash[:error] = l(:'daily_todos.todo_delete_error')
-    else
-      flash[:notice] = l(:'daily_todos.todo_delete')
-      todo.destroy
+  def destroy
+    if request.delete?
+      todo = DailyTodo.find(params[:id])
+      if todo.user_id != User.current.id
+        flash[:error] = l(:'daily_todos.todo.delete_error')
+      else
+        flash[:notice] = l(:'daily_todos.todo.delete')
+        todo.destroy
+      end     
+      render :js => "window.location = '" + url_for(:action => 'one_user', :user_id => User.current.id) + "'"
     end
-    redirect_to(:action => 'one_user', :user_id => User.current.id)
   end
 end
-

@@ -2,35 +2,40 @@
 
 <% form_for(@entry) do |f| %>
   <%= f.hidden_field(:daily_todo_id) %>
-<div class="wiki">
+  <div class="wiki">
     <table class="list">
       <tr>
-        <th width="35%"><%=l(:'daily_todos.plan')%></th>
         <th><%=l(:'daily_todos.time')%></th>
-        <th width="35%"><%=l(:'daily_todos.result')%></th>
+        <th width="38%"><%=l(:'daily_todos.plan')%></th>
+        <th width="38%"><%=l(:'daily_todos.result')%></th>
       </tr>
       <tr>
-          <td>        
-            <%= f.text_area(:plan, :style => 'width: 98%', :rows => 10, :class => 'wiki-edit') %>
-          </td>
           <td align="center" style="vertical-align:middle;">
             <%= f.time_select(:begin) %>
             <%= f.time_select(:end) %>
           </td>
+          <td>        
+            <%= f.text_area(:plan, :style => 'width: 98%', :rows => 10, :class => 'wiki-edit') %>
+          </td>
           <td><%= f.text_area(:result, :style => 'width: 98%', :rows => 10, :class => 'wiki-edit') %></td>         
       </tr>
     </table>
- </div>
-  <% if @entry.new_record? %>
-    <%= link_to l(:'daily_todos.cancel'), {:action => 'one_user', :user_id => User.current.id} %>
-  <% else %>
-    <%= link_to l(:'daily_todos.cancel'), {:action => 'one_user', :user_id => User.current.id, :date => @entry.daily_todo.date} %>
-  <% end %>
+  </div>
+
   <%= submit_tag l(:button_save) %>
+  <% if @entry.new_record? %>
+    <%= link_to l(:'daily_todos.cancel'), {
+          :controller => 'daily_todos',
+          :action     => 'one_user',
+          :user_id    => User.current.id} %>
+  <% else %>
+    <%= link_to l(:'daily_todos.cancel'), {
+          :controller => 'daily_todos',
+          :action     => 'one_user',
+          :user_id    => User.current.id,
+          :date       => @entry.daily_todo.date} %>
+  <% end %>
 <% end %>
 
 <%= wikitoolbar_for 'daily_todo_entry_plan' %>
 <%= wikitoolbar_for 'daily_todo_entry_result' %>
-
-
-

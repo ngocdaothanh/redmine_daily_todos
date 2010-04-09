@@ -1,97 +1,126 @@
 <h2><%=l(:'daily_todos.title')%></h2>
 
-<%=l(:'daily_todos.user')%>: <%= @user.name %>
+<p>
+  <%=l(:'daily_todos.user')%>: <b><%= @user.name %></b>
+</p>
 
 <div>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
   <%= button_to_function(l(:'daily_todos.view'), "window.location = '/daily_todos/one_user/#{@user.id}/' + $('date').value") %>
-</div><br />
+</div>
 
 <div class="wiki">
   <% @todos.each do |todo| %>
-    
-    <% if todo.lunch %>
-      <b>
-        <%= todo.date %>
-        <% if @user == User.current %>
-          <%= link_to(l(:'daily_todos.delete'), { :action => "delete", :id => todo.id }, :confirm => 
-          l(:'daily_todos.delete_confirm')) %>
-        <% end %>
-      </b>
-      <% if @user == User.current %>
-        <% form_for(todo) do |f| %>
-          <%= f.hidden_field(:date) %>
-          <%=l(:'daily_todos.lunch')%>:
-          <%= f.time_select(:lunch) %> -
-          <%= (todo.lunch + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
-          <%= submit_tag l(:button_update) %>
-        <% end %>
-      <% else %>
-        <%=l(:'daily_todos.lunch')%>:
-        <%= todo.lunch.strftime("%H:%M") %> -
-        <%= (todo.lunch + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
-      <% end %>
+    <hr />
 
-      <%#= link_to("Edit",edit_daily_todo_path(todo))%>
-      <table class="list">
-        <tr>
-          <th width="35%"><%=l(:'daily_todos.plan')%></th>
-          <th width="15%"><%=l(:'daily_todos.time')%></th>
-          <th width="35%"><%=l(:'daily_todos.result')%></th>
+    <div>
+      <% if todo.lunch %>
+        <p>
+          <b><%= todo.date %></b>
           <% if @user == User.current %>
-            <th width="15%"></th>
+            <b>
+              <%= link_to_remote(
+                  l(:'daily_todos.delete'),
+                  :url      => daily_todo_path(todo),
+                  :method   => :delete,
+                  :confirm  => l(:'daily_todos.delete_confirm')) %>
+            </b>
           <% end %>
-        </tr>
-        <% todo.daily_todo_entries.each_with_index do |daily_todo_entry, i| %>
+        </p>
+
+        <p>
+          <% if @user == User.current %>
+            <% form_for(todo) do |f| %>
+              <%= f.hidden_field(:date) %>
+              <%=l(:'daily_todos.lunch')%>:
+              <%= f.time_select(:lunch) %> -
+              <%= (todo.lunch + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
+              <%= submit_tag l(:button_update) %>
+            <% end %>
+          <% else %>
+            <%=l(:'daily_todos.lunch')%>:
+            <%= todo.lunch.strftime("%H:%M") %> -
+            <%= (todo.lunch + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
+          <% end %>
+        </p>
+
+        <br /><br />
+
+        <table class="list">
           <tr>
-            <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.plan %></td>
-            <td style="vertical-align:middle;width:15%;" align="center">
-              <%= daily_todo_entry.begin.strftime("%H:%M") if daily_todo_entry.begin %> -
-              <%= daily_todo_entry.end.strftime("%H:%M") if daily_todo_entry.end %><br />
-            </td>
-            <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.result %></td>
+            <th width="15%"><%=l(:'daily_todos.time')%></th>
+            <th width="35%"><%=l(:'daily_todos.plan')%></th>
+            <th width="35%"><%=l(:'daily_todos.result')%></th>
             <% if @user == User.current %>
-              <td style="vertical-align:middle;width:15%;" align="center">
-                <% if todo.new_record? %>
-                  <%= link_to(l(:'daily_todos.new'), {:action => 'new', :date => todo.date}) %>
-                <% else %>
-                  <%= link_to(l(:'daily_todos.edit'), edit_daily_todo_entry_path(daily_todo_entry.id)) %>
-                  
-                  <%= button_to(l(:'daily_todos.delete'), {:controller => 'daily_todo_entries', :action => 'delete', :id => daily_todo_entry.id},
-                        :confirm => l(:'daily_todos.delete_confirm'), :method => :delete) %>
-                <% end %>
-              </td>
+              <th width="15%"></th>
             <% end %>
           </tr>
-        <% end %>
-      </table> 
-      <% if todo.user_id == User.current.id %>
-        <div align="right"> <%= link_to(l(:'daily_todos.add_entry'),todo_entry_new_path(todo.id))%></div>
-      <% end %>
-      <div style="width:50%;">
-      <b><%= link_to(l(:'daily_todos.comment'), todo_comment_new_path(todo.id)) %>:</b><br />
-        <% todo.daily_todo_comments.each do |comment| %>
-          <b><%= comment.user.name %></b>
-          <% if comment.user_id == User.current.id %>
-            <%= link_to(l(:'daily_todos.edit'), todo_comment_edit_path(todo.id,comment.id)) %>
-            <%= link_to(l(:'daily_todos.delete'), {:controller => 'daily_todo_comments',  :action => "delete", :id => comment.id },:confirm => 
-            l(:'daily_todos.delete_confirm')) %>
-          <% end %><br />
-          <%= comment.body %><br />
-          <hr>
-        <% end %>
-      </div>
-      <br />
-      <br />
+          <% todo.daily_todo_entries.each_with_index do |daily_todo_entry, i| %>
+            <tr>
+              <td style="vertical-align:middle;width:15%;" align="center">
+                <%= daily_todo_entry.begin.strftime("%H:%M") if daily_todo_entry.begin %> -
+                <%= daily_todo_entry.end.strftime("%H:%M") if daily_todo_entry.end %><br />
+              </td>
+              <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.plan %></td>
+              <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.result %></td>
+              <% if @user == User.current %>
+                <td style="vertical-align:middle;width:15%;" align="center">
+                  <% if todo.new_record? %>
+                    <%= link_to(l(:'daily_todos.new'), {:action => 'new', :date => todo.date}) %>
+                  <% else %>
+                    <%= link_to(l(:'daily_todos.edit'), edit_daily_todo_entry_path(daily_todo_entry.id)) %>
+                    
+                    <%= button_to_remote(l(:'daily_todos.delete'), 
+                          :controller => 'daily_todo_entries',
+                          :url => daily_todo_entry_path(daily_todo_entry),
+                          :method => :delete,
+                          :confirm => l(:'daily_todos.delete_confirm')) %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table> 
 
-    <% else %>
+        <% if todo.user_id == User.current.id %>
+          <div align="right"><%= link_to(l(:'daily_todos.entry.add'), todo_entry_new_path(todo.id))%></div>
+        <% end %>
+
+        <div style="width: 50%; float: right; background-color:#E6E6FA; padding-left: 10px;">
+          <h4><%= l(:'daily_todos.comments') %></h4>
+          <% todo.daily_todo_comments.each do |comment| %>
+            <b><%= comment.user.name %></b>
+            <% if comment.user_id == User.current.id %>
+              <%= link_to(l(:'daily_todos.edit'), todo_comment_edit_path(todo.id,comment.id)) %>
+              <%= link_to_remote(l(:'daily_todos.delete'), 
+                    :controller => 'daily_todo_comments',
+                    :url => daily_todo_comment_path(comment),
+                    :method => :delete,
+                    :confirm => l(:'daily_todos.delete_confirm')) %>
+            <% end %><br />
+            <%= textilizable comment.body %>
+            <hr>
+          <% end %>
+          <%= link_to(l(:'daily_todos.comment.new'), todo_comment_new_path(todo.id)) %><br /><br />
+        </div>
+        <br style="clear: both" />
+        <br />
+
+      <% else %>
         <% if @user == User.current %>
           <b><%= todo.date %>:</b>
-          <%= link_to l(:'daily_todos.create_link'), :action => 'create_todo', :date => todo.date.to_s %><br /><br /> 
+          <%= link_to_remote( 
+                l(:'daily_todos.create_link'),
+                :url => {:action => 'create_todo', :date => todo.date.to_s}) %>
+          <br />
+          <br /> 
         <% else %>
           <b><%= todo.date %>:</b>
-          <%= l(:'daily_todos.no_todo') %> <br /><br /> 
+          <%= l(:'daily_todos.no_todo') %>
+          <br /><br /> 
         <% end %>
-    <% end %>
+      <% end %>
+    </div>
   <% end %>
+</div>
 </div>

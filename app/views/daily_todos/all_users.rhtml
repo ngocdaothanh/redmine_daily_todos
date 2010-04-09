@@ -2,28 +2,37 @@
 
 <div>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
-  <%= button_to_function (l(:'daily_todos.view'), "window.location = '/daily_todos/all_users/' + $('date').value") %><br /><br />
+  <%= button_to_function (l(:'daily_todos.view'), "window.location = '/daily_todos/all_users/' + $('date').value") %>
+  <br />
+  <br />
 
   <% unless @reported %>
     <p>
-      <%=l(:'daily_todos.you_no_todo')%>
-      <%= link_to l(:'daily_todos.create_link'), :action => 'create_todo', :date => @date.to_s %>
+      <%= l(:'daily_todos.you_no_todo') %>
+      <%= link_to_remote( 
+            l(:'daily_todos.create_link'),
+            :url => {:action => 'create_todo', :date => @date.to_s }
+            ) %>
     </p>
   <% end %>
 </div>
 
-<h3><%= l(:'daily_todos.users_who_have_created_todo') %></h3>
+<% unless @todo_users.empty? %>
+  <h3><%= l(:'daily_todos.users_who_have_created_todo') %></h3>
 
-<ol>
-<% @todo_users.each do |user| %>
-  <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <ol>
+  <% @todo_users.each do |user| %>
+    <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <% end %>
+  </ol>
 <% end %>
-</ol>
 
-<h3><%= l(:'daily_todos.users_who_have_not_created_todo') %></h3>
+<% unless @no_todo_users.empty? %>
+  <h3><%= l(:'daily_todos.users_who_have_not_created_todo') %></h3>
 
-<ol>
-<% @no_todo_users.each do |user| %>
-  <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <ol>
+  <% @no_todo_users.each do |user| %>
+    <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <% end %>
+  </ol>
 <% end %>
-</ol>

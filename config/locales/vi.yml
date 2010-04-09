@@ -14,24 +14,33 @@ vi:
     create_link: Nhấp vào đây để tạo mới.
     no_todo: Không có báo cáo.
     date: Ngày
-    new_entry: Tạo mới Entry
-    new_comment: Tạo mới Comment
     edit: Sửa
-    edit_entry: Sửa Entry
-    edit_comment: Sửa Comment
     delete: Xóa
     delete_confirm: Bạn muốn xóa báo cáo này?
     comment: Comment 
-    add_entry: Thêm Entry  
-    comment_user: Người comment 
-    todo_delete: Todo đã bị xóa 
-    todo_delete_error: Bạn không thể xóa todo của người khác. 
-    todo_create_error: Todo của ngày bạn chọn đã được tạo.
-    entry_create_error: Bạn không thể tạo entry cho todo của người khác.
-    entry_edit_error: Bạn không thể sửa entry của người khác.
-    entry_delete: Entry đã bị xóa
-    entry_delete_error: Bạn không thể xóa entry của người khác.
+    comment_user: Người comment
+    users_who_have_created_todo: Danh sách những người đã tạo TODO.
+    users_who_have_not_created_todo: Danh sách những người chưa tạo TODO. 
+
+    todo:
+    delete: TODO đã bị xóa 
+    delete_error: Bạn không thể xóa TODO của người khác. 
+    create_error: TODO của ngày bạn chọn đã được tạo.
+
+    entry:
+      new: Tạo mới Entry
+      add: Thêm Entry  
+      edit: Sửa Entry
+      create_error: Bạn không thể tạo entry cho TODO của người khác.
+      edit_error: Bạn không thể sửa entry của người khác.
+      delete: Entry đã bị xóa
+      delete_error: Bạn không thể xóa entry của người khác.
+
     login_notice: Đăng nhập
-    comment_edit_error: Bạn không thể sửa comment của người khác.
-    comment_delete_error: Bạn không thể xóa comment của người khác.
-    comment_delete: Comment đã bị xóa
+
+    comment:
+      new: Tạo mới Comment
+      edit: Sửa Comment
+      edit_error: Bạn không thể sửa comment của người khác.
+      delete_error: Bạn không thể xóa comment của người khác.
+      delete: Comment đã bị xóa

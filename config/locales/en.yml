@@ -1,38 +1,46 @@
 en:
   daily_todos:
     user: User
-    plan: Todo
+    plan: TODO
     result: Result
     lunch: Lunch
     time: Time
     button_save: Save
     button_update: Update
     cancel: Cancel
-    title: Daily Todos
+    title: Daily TODOs
     view: View
-    you_no_todo: You have no todo for this date.
+    you_no_todo: You have no TODO for this date.
     create_link: Click here to create.
     no_todo: No TODO.
     date: Date
-    new_entry: New Entry
-    new_comment: New Comment
     edit: Edit
-    edit_entry: Edit Entry
-    edit_comment: Edit Comment
     delete: Delete
     delete_confirm: Are you sure?
-    comment: Comment 
-    add_entry: Add Entry  
-    comment_user: Comment User 
-    todo_delete: Todo deleted 
-    todo_delete_error: You cannot delete other's todo 
-    todo_create_error: You have written todo for this date
-    entry_create_error: You cannot create entry in the other's todo
-    entry_edit_error: You cannot edit other's entry
-    entry_delete: entry deleted
-    entry_delete_error: You cannot delete other's entry
-    login_notice: Please login
-    comment_edit_error: You cannot edit other's comment
-    comment_delete_error: You cannot delete other's comment
+    comments: Comments
+    comment_user: Comment User
     users_who_have_created_todo: Users who have created TODO
     users_who_have_not_created_todo: Users who haven't created TODO yet
+
+    todo:
+      delete: TODO deleted
+      delete_error: You cannot delete other's TODO 
+      create_error: You have written TODO for this date
+
+    entry:
+      new: New Entry
+      edit: Edit Entry
+      add: Add Entry
+      create_error: You cannot create entry in the other's TODO
+      edit_error: You cannot edit other's entry
+      delete: entry deleted
+      delete_error: You cannot delete other's entry
+
+    login_notice: Please login
+
+    comment:
+      new: New Comment
+      edit: Edit Comment
+      edit_error: You cannot edit other's comment
+      delete_error: You cannot delete other's comment
+      delete: Comment have deleted
