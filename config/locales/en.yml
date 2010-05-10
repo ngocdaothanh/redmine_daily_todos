@@ -6,6 +6,7 @@ en:
     lunch: Lunch
     time: Time
     button_save: Save
+    button_create_and_continue: Create and continue
     button_update: Update
     cancel: Cancel
     title: Daily TODOs

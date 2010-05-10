@@ -6,8 +6,9 @@ ja:
     lunch: 昼休憩
     time: 時間
     button_save: 保存
+    button_create_and_continue: 連続作成
     button_update: 更新
-    cancel: キャンセル　
+    cancel: キャンセル
     title: 日次のTODO
     view: 見る
     you_no_todo: あなたのTODOはありません。

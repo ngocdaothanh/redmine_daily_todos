@@ -11,8 +11,8 @@
       </tr>
       <tr>
           <td align="center" style="vertical-align:middle;">
-            <%= f.time_select(:begin) %>
-            <%= f.time_select(:end) %>
+            <%= f.time_select(:begin, :minute_step => 5) %>
+            <%= f.time_select(:end, :minute_step => 5) %>
           </td>
           <td>        
             <%= f.text_area(:plan, :style => 'width: 98%', :rows => 10, :class => 'wiki-edit') %>
@@ -22,12 +22,13 @@
     </table>
   </div>
 
-  <%= submit_tag l(:button_save) %>
+  <%= submit_tag l(:'daily_todos.button_save') %>
   <% if @entry.new_record? %>
+    <%= submit_tag l(:'daily_todos.button_create_and_continue') %>
     <%= link_to l(:'daily_todos.cancel'), {
           :controller => 'daily_todos',
           :action     => 'one_user',
-          :user_id    => User.current.id} %>
+          :user_id    => User.current.id} %>    
   <% else %>
     <%= link_to l(:'daily_todos.cancel'), {
           :controller => 'daily_todos',

@@ -26,11 +26,15 @@ class DailyTodoEntriesController < ApplicationController
       end
 
       if @entry.save
-        redirect_to(
-          :controller => 'daily_todos',
-          :action     => 'one_user',
-          :user_id    => User.current.id,
-          :date       => @entry.daily_todo.date)
+        if params['commit'] == l(:'daily_todos.button_save')   
+          redirect_to(
+            :controller => 'daily_todos',
+            :action     => 'one_user',
+            :user_id    => User.current.id,
+            :date       => @entry.daily_todo.date)
+        else
+          redirect_to(:action => 'new', :daily_todo_id => @entry.daily_todo_id)
+        end
       else
         render :action => 'new'
       end
