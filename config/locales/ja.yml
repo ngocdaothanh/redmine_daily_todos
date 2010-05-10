@@ -17,7 +17,7 @@ ja:
     edit: 編集
     delete: 削除
     delete_confirm: 削除してよろしいですか?
-    comment: コメント 
+    comments: コメント 
     comment_user: コメントユーザー 
     users_who_have_created_todo: TODOを作ったユーザー
     users_who_have_not_created_todo: TODOをまだ作らないユーザー

@@ -17,7 +17,7 @@ vi:
     edit: Sửa
     delete: Xóa
     delete_confirm: Bạn muốn xóa báo cáo này?
-    comment: Comment 
+    comments: Comment 
     comment_user: Người comment
     users_who_have_created_todo: Danh sách những người đã tạo TODO.
     users_who_have_not_created_todo: Danh sách những người chưa tạo TODO. 
