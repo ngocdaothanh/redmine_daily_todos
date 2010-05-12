@@ -21,8 +21,12 @@
   <h3><%= l(:'daily_todos.users_who_have_created_todo') %></h3>
 
   <ol>
-  <% @todo_users.each do |user| %>
-    <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <% @todo_users.each do |user| %> 
+    <% if user.id == User.current.id %>
+      <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
+    <% else %>
+      <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+    <% end %>
   <% end %>
   </ol>
 <% end %>
@@ -31,8 +35,12 @@
   <h3><%= l(:'daily_todos.users_who_have_not_created_todo') %></h3>
 
   <ol>
-  <% @no_todo_users.each do |user| %>
-    <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <% @no_todo_users.each do |user| %>   
+    <% if user.id == User.current.id %>
+      <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
+    <% else %>
+      <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+    <% end %>
   <% end %>
   </ol>
 <% end %>
