@@ -26,9 +26,9 @@ vi:
   <p>Do đó nội dung ghi trong TODO không giới hạn trong phần Vấn đề (issue, ticket) của Redmine, mà tự do hơn. Ví dụ trong TODO có thể ghi hôm nay định học đề tài lập trình gì đó, hay là sẽ dành thời gian để tìm hiểu một công nghệ mới nào đó như tìm hiểu về NoSQL chẳng hạn.</p>' 
 
     todo:
-    delete: TODO đã bị xóa 
-    delete_error: Bạn không thể xóa TODO của người khác. 
-    create_error: TODO của ngày bạn chọn đã được tạo.
+      delete: TODO đã bị xóa 
+      delete_error: Bạn không thể xóa TODO của người khác. 
+      create_error: TODO của ngày bạn chọn đã được tạo.
 
     entry:
       new: Tạo mới Entry
