@@ -1,7 +1,7 @@
 en:
   daily_todos:
     user: User
-    plan: TODO
+    plan: Plan
     result: Result
     lunch: Lunch
     time: Time
@@ -36,7 +36,7 @@ en:
       add: Add Entry
       create_error: You cannot create entry in the other's TODO
       edit_error: You cannot edit other's entry
-      delete: entry deleted
+      delete: Entry deleted
       delete_error: You cannot delete other's entry
 
     login_notice: Please login
@@ -46,4 +46,4 @@ en:
       edit: Edit Comment
       edit_error: You cannot edit other's comment
       delete_error: You cannot delete other's comment
-      delete: Comment have deleted
+      delete: Comment deleted
