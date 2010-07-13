@@ -1,4 +1,8 @@
 vi:
+  date:
+    formats:
+      weekday_and_default: "%A %d-%m-%Y"
+      
   daily_todos:
     user: Người dùng
     plan: Kế hoạch

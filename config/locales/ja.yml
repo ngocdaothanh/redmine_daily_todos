@@ -1,4 +1,8 @@
 ja:
+  date:
+    formats:
+      weekday_and_default: "%A %Y/%m/%d"
+      
   daily_todos:
     user: ユーザー
     plan: 予定

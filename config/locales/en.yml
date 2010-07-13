@@ -1,4 +1,8 @@
 en:
+  date:
+    formats:
+      weekday_and_default: "%A %m/%d/%Y"
+      
   daily_todos:
     user: User
     plan: Plan
