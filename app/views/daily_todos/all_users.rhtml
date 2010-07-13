@@ -9,38 +9,90 @@
   <% unless @reported %>
     <p>
       <%= l(:'daily_todos.you_no_todo') %>
-      <%= link_to_remote( 
-            l(:'daily_todos.create_link'),
-            :url => {:action => 'create_todo', :date => @date.to_s }
-            ) %>
+      <%= link_to_remote(
+        l(:'daily_todos.create_link'),
+        :url => {:action => 'create_todo', :date => @date.to_s }
+      ) %>
     </p>
   <% end %>
 </div>
 
-<% unless @todo_users.empty? %>
+<% if @daily_todo_todo_has_user %>
   <h3><%= l(:'daily_todos.users_who_have_created_todo') %></h3>
 
-  <ol>
-  <% @todo_users.each do |user| %> 
-    <% if user.id == User.current.id %>
-      <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
-    <% else %>
-      <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <% @daily_todo_groups.each_with_index do |group, i| %>
+    <% unless @daily_todo_users_todo[i].empty? %>
+      <div style="font-weight: bold;">
+        <%= h(group) %>
+      </div>
+      <ol>
+        <% @daily_todo_users_todo[i].each do |user| %>
+          <% if user.id == User.current.id %>
+            <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
+          <% else %>
+            <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+          <% end %>
+        <% end %>
+      </ol>
+      <br />
     <% end %>
   <% end %>
-  </ol>
+
+  <% unless @todo_ungroup_users.empty? %>
+    <div style="font-weight: bold;">
+      <%= l(:'daily_todos.ungroup') %>
+    </div>
+    <ol>
+      <% @todo_ungroup_users.each do |user| %>
+        <% if user.id == User.current.id %>
+          <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
+        <% else %>
+          <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+        <% end %>
+      <% end %>
+    </ol>
+    <br />
+  <%  end %>
+    
 <% end %>
 
-<% unless @no_todo_users.empty? %>
+<br />
+
+<% if @daily_todo_no_todo_has_user %>
   <h3><%= l(:'daily_todos.users_who_have_not_created_todo') %></h3>
 
-  <ol>
-  <% @no_todo_users.each do |user| %>   
-    <% if user.id == User.current.id %>
-      <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
-    <% else %>
-      <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+  <% @daily_todo_groups.each_with_index do |group, i| %>
+    <% unless @daily_todo_users_no_todo[i].empty? %>
+      <div style="font-weight: bold;">
+        <%= textilizable h(group) %>
+      </div>
+      <ol>
+        <% @daily_todo_users_no_todo[i].each do |user| %>
+          <% if user.id == User.current.id %>
+            <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
+          <% else %>
+            <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+          <% end %>
+        <% end %>
+      </ol>
+      <br />
     <% end %>
   <% end %>
-  </ol>
+
+  <% unless @no_todo_ungroup_users.empty? %>
+    <div style="font-weight: bold;">
+      <%= l(:'daily_todos.ungroup') %>
+    </div>
+    <ol>
+      <% @no_todo_ungroup_users.each do |user| %>
+        <% if user.id == User.current.id %>
+          <li><b><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></b></li>
+        <% else %>
+          <li><%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %></li>
+        <% end %>
+      <% end %>
+    </ol>
+    <br />
+  <% end %>
+
 <% end %>

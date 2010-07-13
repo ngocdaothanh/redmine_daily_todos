@@ -13,10 +13,12 @@
   <% @todos.each do |todo| %>
     <hr />
 
-    <div>
+      <div <% if todo.date == @date %>
+            style="background-color: #FEFEF3;"
+        <%end%> >
       <% if todo.lunch %>
         <p>
-          <b><%= todo.date %></b>
+          <b><%= format_date_with_weekday(todo.date) %></b>
           <% if @user == User.current %>
             <b>
               <%= link_to_remote(
@@ -33,7 +35,7 @@
             <% form_for(todo) do |f| %>
               <%= f.hidden_field(:date) %>
               <%=l(:'daily_todos.lunch')%>:
-              <%= f.time_select(:lunch) %> -
+              <%= f.time_select(:lunch, :minute_step => 5) %> -
               <%= (todo.lunch + DailyTodo::LUNCH).strftime("%H:%M") if todo.lunch %>
               <%= submit_tag l(:button_update) %>
             <% end %>
@@ -99,7 +101,7 @@
                     :confirm => l(:'daily_todos.delete_confirm')) %>
             <% end %><br />
             <%= textilizable comment.body %>
-            <hr>
+            <hr />
           <% end %>
           <%= link_to(l(:'daily_todos.comment.new'), todo_comment_new_path(todo.id)) %><br /><br />
         </div>
@@ -108,19 +110,19 @@
 
       <% else %>
         <% if @user == User.current %>
-          <b><%= todo.date %>:</b>
+          <b><%= format_date_with_weekday(todo.date) %>:</b>
           <%= link_to_remote( 
                 l(:'daily_todos.create_link'),
                 :url => {:action => 'create_todo', :date => todo.date.to_s}) %>
           <br />
           <br /> 
         <% else %>
-          <b><%= todo.date %>:</b>
+          <b> <%= format_date_with_weekday(todo.date) %>:
+          </b>
           <%= l(:'daily_todos.no_todo') %>
           <br /><br /> 
         <% end %>
       <% end %>
     </div>
   <% end %>
-</div>
 </div>

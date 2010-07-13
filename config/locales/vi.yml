@@ -23,7 +23,8 @@ vi:
     users_who_have_created_todo: Danh sách những người đã tạo TODO.
     users_who_have_not_created_todo: Danh sách những người chưa tạo TODO. 
     message: '<p>TODO không thay thế cho phần Vấn đề (issue, ticket) của Redmine. TODO giúp bạn <b>tự</b> quản lý công việc hàng ngày và cũng giúp những người khác hiểu rõ được công việc của bạn đang làm. Có thể coi nó như cuốn sổ tay hay nhật kí giúp bạn lưu lại quá trình làm việc của mình.</p>
-  <p>Do đó nội dung ghi trong TODO không giới hạn trong phần Vấn đề (issue, ticket) của Redmine, mà tự do hơn. Ví dụ trong TODO có thể ghi hôm nay định học đề tài lập trình gì đó, hay là sẽ dành thời gian để tìm hiểu một công nghệ mới nào đó như tìm hiểu về NoSQL chẳng hạn.</p>' 
+  <p>Do đó nội dung ghi trong TODO không giới hạn trong phần Vấn đề (issue, ticket) của Redmine, mà tự do hơn. Ví dụ trong TODO có thể ghi hôm nay định học đề tài lập trình gì đó, hay là sẽ dành thời gian để tìm hiểu một công nghệ mới nào đó như tìm hiểu về NoSQL chẳng hạn.</p>'
+    ungroup: Chưa có nhóm
 
     todo:
       delete: TODO đã bị xóa 
@@ -38,6 +39,8 @@ vi:
       edit_error: Bạn không thể sửa entry của người khác.
       delete: Entry đã bị xóa
       delete_error: Bạn không thể xóa entry của người khác.
+      entry_create: Entry đã được tạo
+      entry_update: Entry đã được cập nhật
 
     login_notice: Đăng nhập
 
@@ -47,3 +50,5 @@ vi:
       edit_error: Bạn không thể sửa comment của người khác.
       delete_error: Bạn không thể xóa comment của người khác.
       delete: Comment đã bị xóa
+      comment_create: Comment đã được tạo
+      comment_update: Comment đã được cập nhật

@@ -15,7 +15,8 @@ class DailyTodoCommentsController < ApplicationController
       if User.current
         @comment = DailyTodoComment.new(params[:daily_todo_comment])
         @comment.user_id = User.current.id
-        if @comment.save    
+        if @comment.save
+          flash[:notice] = l(:'daily_todos.comment.comment_create')
           redirect_to(
             :controller => 'daily_todos',
             :action     => 'one_user',
@@ -48,6 +49,7 @@ class DailyTodoCommentsController < ApplicationController
         phr = params[:daily_todo_comment]  
         @comment.body = phr[:body]
         if @comment.save
+           flash[:notice] = l(:'daily_todos.comment.comment_update')
           redirect_to(
             :controller => 'daily_todos',
             :action     => 'one_user',

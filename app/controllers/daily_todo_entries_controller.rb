@@ -26,7 +26,8 @@ class DailyTodoEntriesController < ApplicationController
       end
 
       if @entry.save
-        if params['commit'] == l(:'daily_todos.button_save')   
+        if params['commit'] == l(:'daily_todos.button_save')
+          flash[:notice] = l(:'daily_todos.entry.entry_create')
           redirect_to(
             :controller => 'daily_todos',
             :action     => 'one_user',
@@ -66,6 +67,7 @@ class DailyTodoEntriesController < ApplicationController
 
       @entry.update_attributes(params[:daily_todo_entry])
       if @entry.save
+        flash[:notice] = l(:'daily_todos.entry.entry_update')
         redirect_to(
           :controller => 'daily_todos',
           :action     => 'one_user',

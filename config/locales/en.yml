@@ -24,6 +24,7 @@ en:
     users_who_have_not_created_todo: Users who haven't created TODO yet
     message: '<p>TODO is not a substitute for Issues (tickets) of Redmine. TODO helps you manage your <b>own</b> list of work and also helps others know what you are doing. It is like a notebook or diary to help you memorize what you are doing.</p>
   <p>Thus, contents in TODO is not limited to Issues (tickets) of Redmine, but more liberal. For example in TODO you can write a programming technique you are planning to study, or a new technology like NoSQL.</p>' 
+    ungroup: Ungroup
 
     todo:
       delete: TODO deleted
@@ -38,6 +39,8 @@ en:
       edit_error: You cannot edit other's entry
       delete: Entry deleted
       delete_error: You cannot delete other's entry
+      entry_create: Entry created
+      entry_update: Entry updated
 
     login_notice: Please login
 
@@ -47,3 +50,5 @@ en:
       edit_error: You cannot edit other's comment
       delete_error: You cannot delete other's comment
       delete: Comment deleted
+      comment_create: Comment created
+      comment_update: Comment updated

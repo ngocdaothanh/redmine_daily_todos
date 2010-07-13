@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :daily_todo_comments
 
   map.with_options :controller => 'daily_todo_comments' do |m2|
-    m2.todo_comment_new  'daily_todos/:daily_todo_id/comments/new',      :action => 'new' 
+    m2.todo_comment_new  'daily_todos/:daily_todo_id/comments/new',      :action => 'new'
     m2.todo_comment_edit 'daily_todos/:daily_todo_id/comments/:id/edit', :action => 'edit'
   end
 

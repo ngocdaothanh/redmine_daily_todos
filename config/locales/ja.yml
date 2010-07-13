@@ -23,7 +23,8 @@ ja:
     users_who_have_created_todo: TODOを作ったユーザー
     users_who_have_not_created_todo: TODOをまだ作らないユーザー
     message: '<p>TODOはRedmineのチケットの代わりではありません。毎日の自分の仕事を管理するのにも、他の人とやっている仕事を共有するのにも使えます。いわゆる、自分の仕事を記録するメモ帳とか日記です。</p>
-    <p>だから、TODOに書かれる内容はRedmineのチケットに制限されず自由です。例えば、NoSQLとか高度な技術的問題の調査や、その調査結果を報告するのにもTODOは活用できます。</p>' 
+    <p>だから、TODOに書かれる内容はRedmineのチケットに制限されず自由です。例えば、NoSQLとか高度な技術的問題の調査や、その調査結果を報告するのにもTODOは活用できます。</p>'
+    ungroup: グループなし
   
     todo:
       delete:  TODOが削除されました。
@@ -38,8 +39,9 @@ ja:
       edit_error: 他人のエントリを編集することができません。
       delete: エントリが削除されました。
       delete_error: 他人のエントリを削除することができません。
+      entry_create: エントリが追加されました。
+      entry_update: エントリが更新されました。
 
-      
     login_notice: ログインしてください。
 
     comment:
@@ -48,3 +50,5 @@ ja:
       edit_error: 他人のコメントを編集することができません。
       delete_error: 他人のコメントを削除することができません。
       delete: コメントが削除されました。
+      comment_create: コメントが追加されました。
+      comment_update: コメントが更新されました。
