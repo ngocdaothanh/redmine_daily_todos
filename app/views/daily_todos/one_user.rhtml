@@ -13,19 +13,19 @@
   <% @todos.each do |todo| %>
     <hr />
 
-      <div <% if todo.date == @date %>
-            style="background-color: #FEFEF3;"
-        <%end%> >
-      <% if todo.lunch %>
+    <div <% if todo.date == @date %>
+        style="background-color: #FEFEF3;"
+      <%end%> >
+        <% if todo.lunch %>
         <p>
           <b><%= format_date_with_weekday(todo.date) %></b>
           <% if @user == User.current %>
             <b>
               <%= link_to_remote(
-                  l(:'daily_todos.delete'),
-                  :url      => daily_todo_path(todo),
-                  :method   => :delete,
-                  :confirm  => l(:'daily_todos.delete_confirm')) %>
+                l(:'daily_todos.delete'),
+                :url      => daily_todo_path(todo),
+                :method   => :delete,
+                :confirm  => l(:'daily_todos.delete_confirm')) %>
             </b>
           <% end %>
         </p>
@@ -64,25 +64,27 @@
                 <%= daily_todo_entry.end.strftime("%H:%M") if daily_todo_entry.end %><br />
               </td>
               <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.plan %></td>
-              <td style="vertical-align:middle;width:35%;"><%= textilizable daily_todo_entry.result %></td>
+              <td style="vertical-align:middle;width:35%;">
+                <%= textilizable daily_todo_entry.result %>
+              </td>
               <% if @user == User.current %>
                 <td style="vertical-align:middle;width:15%;" align="center">
                   <% if todo.new_record? %>
                     <%= link_to(l(:'daily_todos.new'), {:action => 'new', :date => todo.date}) %>
                   <% else %>
                     <%= link_to(l(:'daily_todos.edit'), edit_daily_todo_entry_path(daily_todo_entry.id)) %>
-                    
-                    <%= button_to_remote(l(:'daily_todos.delete'), 
-                          :controller => 'daily_todo_entries',
-                          :url => daily_todo_entry_path(daily_todo_entry),
-                          :method => :delete,
-                          :confirm => l(:'daily_todos.delete_confirm')) %>
+
+                    <%= button_to_remote(l(:'daily_todos.delete'),
+                      :controller => 'daily_todo_entries',
+                      :url => daily_todo_entry_path(daily_todo_entry),
+                      :method => :delete,
+                      :confirm => l(:'daily_todos.delete_confirm')) %>
                   <% end %>
                 </td>
               <% end %>
             </tr>
           <% end %>
-        </table> 
+        </table>
 
         <% if todo.user_id == User.current.id %>
           <div align="right"><%= link_to(l(:'daily_todos.entry.add'), todo_entry_new_path(todo.id))%></div>
@@ -94,11 +96,11 @@
             <b><%= comment.user.name %></b>
             <% if comment.user_id == User.current.id %>
               <%= link_to(l(:'daily_todos.edit'), todo_comment_edit_path(todo.id,comment.id)) %>
-              <%= link_to_remote(l(:'daily_todos.delete'), 
-                    :controller => 'daily_todo_comments',
-                    :url => daily_todo_comment_path(comment),
-                    :method => :delete,
-                    :confirm => l(:'daily_todos.delete_confirm')) %>
+              <%= link_to_remote(l(:'daily_todos.delete'),
+                :controller => 'daily_todo_comments',
+                :url => daily_todo_comment_path(comment),
+                :method => :delete,
+                :confirm => l(:'daily_todos.delete_confirm')) %>
             <% end %><br />
             <%= textilizable comment.body %>
             <hr />
@@ -111,16 +113,16 @@
       <% else %>
         <% if @user == User.current %>
           <b><%= format_date_with_weekday(todo.date) %>:</b>
-          <%= link_to_remote( 
-                l(:'daily_todos.create_link'),
-                :url => {:action => 'create_todo', :date => todo.date.to_s}) %>
+          <%= link_to_remote(
+            l(:'daily_todos.create_link'),
+            :url => {:action => 'create_todo', :date => todo.date.to_s}) %>
           <br />
-          <br /> 
+          <br />
         <% else %>
           <b> <%= format_date_with_weekday(todo.date) %>:
           </b>
           <%= l(:'daily_todos.no_todo') %>
-          <br /><br /> 
+          <br /><br />
         <% end %>
       <% end %>
     </div>

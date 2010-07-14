@@ -1,5 +1,5 @@
 function $(element_id) {
-    return document.getElementById(element_id)
+    return document.getElementById(element_id);
 }
 
 function getClientHour() {
