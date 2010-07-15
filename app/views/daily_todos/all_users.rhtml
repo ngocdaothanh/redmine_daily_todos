@@ -23,7 +23,7 @@
   <% @daily_todo_groups.each_with_index do |group, i| %>
     <% unless @daily_todo_users_todo[i].empty? %>
       <div style="font-weight: bold;">
-        <%= h(group) %>
+        <%= group %>
       </div>
       <ol>
         <% @daily_todo_users_todo[i].each do |user| %>

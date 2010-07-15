@@ -32,4 +32,3 @@ function setCurrentTime() {
     var indexHourOfEnd = getHourIndexOfTimeSelect(currentHour, $("daily_todo_entry_end_4i"));
     $("daily_todo_entry_end_4i").selectedIndex = indexHourOfEnd;
 }
-

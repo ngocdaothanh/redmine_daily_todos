@@ -147,15 +147,32 @@ jsCombo.prototype.draw = function() {
 }
 
 
-function jsColorPickerText(htmlText, scope) {
-    this.htmlText = htmlText || null;
+function jsColorButton(title, scope, className, id) {
+    if(typeof jsToolBar.strings == 'undefined') {
+      this.title = title || null;
+    } else {
+      this.title = jsToolBar.strings[title] || title || null;
+    }
     this.scope = scope || null;
+    this.className = className || null;
+    this.id = id || null;
 }
-jsColorPickerText.prototype.draw = function() {
+jsColorButton.prototype.draw = function() {
 	if (!this.scope) return null;
-	var text = document.createElement('span');
-        text.innerHTML = this.htmlText;
-	return text;
+	var button = document.createElement('button');
+	button.setAttribute('type','button');
+        button.setAttribute('id', this.id);
+        button.setAttribute('value', 'FF9600');
+	button.tabIndex = 200;
+	if (this.className) button.className = this.className;
+	button.title = this.title;
+	var span = document.createElement('span');
+	span.appendChild(document.createTextNode(this.title));
+	button.appendChild(span);
+	if (this.icon != undefined) {
+		button.style.backgroundImage = 'url('+this.icon+')';
+	}
+	return button;
 }
 
 
@@ -189,11 +206,10 @@ jsToolBar.prototype = {
         getColorPickerTextId: function() {
 		return this.color_picker_text_id;
 	},
-
-        colorPickerText: function(toolName) {
+        colorButton: function(toolName) {
 		var tool = this.elements[toolName];
-		var t = new jsColorPickerText(tool.htmlText, this);
-		return t;
+		var b = new jsColorButton(tool.title, this, 'jstb_'+toolName, tool.id);
+		return b;
 	},
 	button: function(toolName) {
 		var tool = this.elements[toolName];
