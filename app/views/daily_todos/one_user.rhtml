@@ -7,6 +7,9 @@
 <div>
   <%= text_field_tag 'date', @date.to_s, :size => 10 %><%= calendar_for('date') %>
   <%= button_to_function(l(:'daily_todos.view'), "window.location = '/daily_todos/one_user/#{@user.id}/' + $('date').value") %>
+  <span style="margin-left: 20px; font-weight: bold;">
+    <%= link_to_function(l(:'daily_todos.today'), "window.location = '/daily_todos/one_user/#{@user.id}/#{Date.today.strftime('%Y-%m-%d')}'") %>
+  </span>
 </div>
 
 <div class="wiki">

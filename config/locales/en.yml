@@ -29,6 +29,7 @@ en:
     message: '<p>TODO is not a substitute for Issues (tickets) of Redmine. TODO helps you manage your <b>own</b> list of work and also helps others know what you are doing. It is like a notebook or diary to help you memorize what you are doing.</p>
   <p>Thus, contents in TODO is not limited to Issues (tickets) of Redmine, but more liberal. For example in TODO you can write a programming technique you are planning to study, or a new technology like NoSQL.</p>' 
     ungroup: Ungroup
+    today: Today
 
     todo:
       delete: TODO deleted

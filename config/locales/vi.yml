@@ -29,6 +29,7 @@ vi:
     message: '<p>TODO không thay thế cho phần Vấn đề (issue, ticket) của Redmine. TODO giúp bạn <b>tự</b> quản lý công việc hàng ngày và cũng giúp những người khác hiểu rõ được công việc của bạn đang làm. Có thể coi nó như cuốn sổ tay hay nhật kí giúp bạn lưu lại quá trình làm việc của mình.</p>
   <p>Do đó nội dung ghi trong TODO không giới hạn trong phần Vấn đề (issue, ticket) của Redmine, mà tự do hơn. Ví dụ trong TODO có thể ghi hôm nay định học đề tài lập trình gì đó, hay là sẽ dành thời gian để tìm hiểu một công nghệ mới nào đó như tìm hiểu về NoSQL chẳng hạn.</p>'
     ungroup: Chưa có nhóm
+    today: Hôm nay
 
     todo:
       delete: TODO đã bị xóa 
