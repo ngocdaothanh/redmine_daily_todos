@@ -34,6 +34,8 @@ ja:
       delete:  TODOが削除されました。
       delete_error: 他人のTODOを削除することができません。
       create_error: この日、TODOが作成されました。
+      created: TODOが追加されました。
+      updated: TODOが更新されました。
 
     entry:
       new: 新規エントリ

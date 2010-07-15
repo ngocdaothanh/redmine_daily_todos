@@ -34,6 +34,8 @@ en:
       delete: TODO deleted
       delete_error: You cannot delete other's TODO 
       create_error: You have written TODO for this date
+      created: TODO created
+      updated: TODO updated
 
     entry:
       new: New Entry

@@ -34,6 +34,8 @@ vi:
       delete: TODO đã bị xóa 
       delete_error: Bạn không thể xóa TODO của người khác. 
       create_error: TODO của ngày bạn chọn đã được tạo.
+      created: TODO đã được tạo
+      updated: TODO đã được cập nhật
 
     entry:
       new: Tạo mới Entry

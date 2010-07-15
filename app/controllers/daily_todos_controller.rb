@@ -96,6 +96,7 @@ class DailyTodosController < ApplicationController
       else
         todo = DailyTodo.new(:date => date, :lunch => time, :user_id => User.current.id )
         todo.save
+        flash[:notice] = l(:'daily_todos.todo.created')
       end
       render :js => "window.location = '" + url_for(:action => 'one_user', :user_id => User.current.id, :date => date) + "'"
     end
@@ -107,6 +108,7 @@ class DailyTodosController < ApplicationController
       pdr = params[:daily_todo]
       @todo.lunch = Time.mktime(@todo.date.year, @todo.date.month,@todo.date.day, pdr['lunch(4i)'], pdr['lunch(5i)'])
       @todo.save
+      flash[:notice] = l(:'daily_todos.todo.updated')
       redirect_to(:action => 'one_user', :user_id => User.current.id)
     end
   end
