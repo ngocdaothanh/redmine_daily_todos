@@ -10,43 +10,31 @@ class DailyTodosController < ApplicationController
   def all_users
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     users_ungroup = User.all(:conditions => {:status => User::STATUS_ACTIVE}, :order => 'login')
-
-    @daily_todo_groups = Group.all()
     @reported = false
-    @daily_todo_todo_has_user = false
-    @daily_todo_no_todo_has_user = false
-    @daily_todo_users_todo = Array.new()
-    @daily_todo_users_no_todo = Array.new()
-    
-
+    @daily_todo_users_group = Array.new()
+    @daily_todo_groups = Group.all()
     @daily_todo_groups.each() { |group|
       users_of_group = group.users.sort
       no_todo_users, todo_users = users_of_group.partition do |user|
         DailyTodo.first(:conditions => {:user_id => user.id, :date => @date}).nil?
       end
-      @daily_todo_users_no_todo.push(no_todo_users)
-      @daily_todo_users_todo.push(todo_users)
-      @daily_todo_no_todo_has_user = @daily_todo_no_todo_has_user || !no_todo_users.empty?
-      @daily_todo_todo_has_user = @daily_todo_todo_has_user || !todo_users.empty?
-
+      hash_users_of_group = {:todo => todo_users, :no_todo => no_todo_users}
+      @daily_todo_users_group.push(hash_users_of_group)
       # Check if the current user has written todo for this date
       @reported = @reported || todo_users.any? { |user|
         user.id == User.current.id
       }
-
       users_of_group.each() { |user_of_group|
         users_ungroup.delete_if { |user_ungroup|
           user_ungroup.id == user_of_group.id
         }
       }
     }
-    
-    @no_todo_ungroup_users, @todo_ungroup_users = users_ungroup.partition do |user|
+    no_todo_ungroup_users, todo_ungroup_users = users_ungroup.partition do |user|
       DailyTodo.first(:conditions => {:user_id => user.id, :date => @date}).nil?
     end
-    @daily_todo_no_todo_has_user = @daily_todo_no_todo_has_user || !@no_todo_ungroup_users.empty?
-    @daily_todo_todo_has_user = @daily_todo_todo_has_user || !@todo_ungroup_users.empty?
-    @reported = @reported || @todo_ungroup_users.any? { |user|
+    @daily_todo_users_ungroup = {:todo => todo_ungroup_users, :no_todo => no_todo_ungroup_users}
+    @reported = @reported || todo_ungroup_users.any? { |user|
       user.id == User.current.id
     }
   end
