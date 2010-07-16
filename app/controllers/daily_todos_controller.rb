@@ -10,9 +10,10 @@ class DailyTodosController < ApplicationController
   def all_users
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
     users_ungroup = User.all(:conditions => {:status => User::STATUS_ACTIVE}, :order => 'login')
+    @user_counts = users_ungroup.size()
     @reported = false
     @daily_todo_users_group = Array.new()
-    @daily_todo_groups = Group.all()
+    @daily_todo_groups = Group.all().sort
     @daily_todo_groups.each() { |group|
       users_of_group = group.users.sort
       no_todo_users, todo_users = users_of_group.partition do |user|

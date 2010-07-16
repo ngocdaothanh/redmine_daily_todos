@@ -16,14 +16,16 @@
     </p>
   <% end %>
 </div>
-
-<% @daily_todo_groups.each_with_index do |group, i| %>
-  <div style="font-weight: bold;">
-    <%= h(group) %>
-  </div>
-  <table width="100%">
-    <tr valign="top">
-      <td width="50%">
+<table width="100%">
+  <tr valign="top">
+    <td width="50%">
+      <% group_index = 0 %>
+      <% total_users_to_now =0 %>
+      <%  0.upto(@daily_todo_groups.size - 1) do |i| %>
+        <% group_index = i +1 %>
+        <div style="font-weight: bold;">
+          <%= h(@daily_todo_groups[i]) %>
+        </div>
         <ol>
           <% @daily_todo_users_group[i][:todo].each do |user| %>
             <li>
@@ -32,10 +34,6 @@
                 <% if user.id == User.current.id %></b><% end %>
             </li>
           <% end %>
-        </ol>
-      </td>
-      <td width="50%">
-        <ol>
           <% @daily_todo_users_group[i][:no_todo].each do |user| %>
             <li>
               <i>
@@ -46,19 +44,41 @@
             </li>
           <% end %>
         </ol>
-      </td>
-    </tr>
-  </table>
-  <br />
-<% end %>
+        <br />
+        <% total_users_to_now += @daily_todo_users_group[i][:todo].size + @daily_todo_users_group[i][:no_todo].size %>
+        <% break if total_users_to_now > (@user_counts/2) %>
+      <% end %>
+    </td>
+    <td width="50%">
+      <%  group_index.upto(@daily_todo_groups.size - 1) do |i| %>
+        <div style="font-weight: bold;">
+          <%= h(@daily_todo_groups[i]) %>
+        </div>
+        <ol>
+          <% @daily_todo_users_group[i][:todo].each do |user| %>
+            <li>
+              <% if user.id == User.current.id %><b><% end %>
+                <%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %>
+                <% if user.id == User.current.id %></b><% end %>
+            </li>
+          <% end %>
+          <% @daily_todo_users_group[i][:no_todo].each do |user| %>
+            <li>
+              <i>
+                <% if user.id == User.current.id %><b><% end %>
+                  <%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}, :style => "color:#81A6BE;") %>
+                  <% if user.id == User.current.id %></b><% end %>
+              </i>
+            </li>
+          <% end %>
+        </ol>
+        <br />
+      <% end %>
 
-<% unless @daily_todo_users_ungroup.empty? %>
-  <div style="font-weight: bold;">
-    <%= l(:'daily_todos.ungroup') %>
-  </div>
-  <table width="100%">
-    <tr valign="top">
-      <td width="50%">
+      <% unless @daily_todo_users_ungroup.empty? %>
+        <div style="font-weight: bold;">
+          <%= l(:'daily_todos.ungroup') %>
+        </div>
         <ol>
           <% @daily_todo_users_ungroup[:todo].each do |user, i| %>
             <li><% if user.id == User.current.id %><b><% end %>
@@ -66,10 +86,6 @@
                 <% if user.id == User.current.id %></b><% end %>
             </li>
           <% end %>
-        </ol>
-      </td>
-      <td width="50%">
-        <ol>
           <% @daily_todo_users_ungroup[:no_todo].each do |user| %>
             <li>
               <i>
@@ -80,8 +96,8 @@
             </li>
           <% end %>
         </ol>
-      </td>
-    </tr>
-  </table>
-  <br />
-<%  end %>
+        <br />
+      <%  end %>
+    </td>
+  </tr>
+</table>
