@@ -7,7 +7,8 @@
 // See scriptaculous.js for full license.  
 
 /* ------------- element ext -------------- */  
- 
+if(colorPickerLibAdded == false) {
+
 // converts rgb() and #xxx to #xxxxxx format,  
 // returns self (or first argument) if not convertable  
 String.prototype.parseColor = function() {  
@@ -900,4 +901,6 @@ Effect.Fold = function(element) {
         setStyle(effect.element, oldStyle);
       }} });
   }}, arguments[1] || {}));
+}
+
 }

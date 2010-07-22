@@ -1,6 +1,7 @@
 // Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
 //
 // See scriptaculous.js for full license.
+if(colorPickerLibAdded == false) {
 
 var Builder = {
   NODEMAP: {
@@ -98,4 +99,6 @@ var Builder = {
   _isStringOrNumber: function(param) {
     return(typeof param=='string' || typeof param=='number');
   }
+}
+
 }

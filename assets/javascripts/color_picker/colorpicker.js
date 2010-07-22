@@ -5,6 +5,7 @@
    written by Matthias Platzer AT knallgrau.at
    for a detailled documentation go to http://www.knallgrau.at/code/colorpicker 
  */
+if(colorPickerLibAdded == false) {
 
 if(!Control) var Control = {};
 Control.colorPickers = [];
@@ -194,4 +195,6 @@ Control.ColorPicker.prototype = {
         this.updateSwatch();
         if (this.options.onUpdate) this.options.onUpdate.bind(this)(this.field.value);
     }
+}
+
 }

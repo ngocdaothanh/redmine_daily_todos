@@ -162,7 +162,7 @@ jsColorButton.prototype.draw = function() {
 	var button = document.createElement('button');
 	button.setAttribute('type','button');
         button.setAttribute('id', this.id);
-        button.setAttribute('value', 'FF9600');
+        button.setAttribute('value', '0069FF');
 	button.tabIndex = 200;
 	if (this.className) button.className = this.className;
 	button.title = this.title;

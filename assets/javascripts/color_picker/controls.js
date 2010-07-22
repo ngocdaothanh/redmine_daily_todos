@@ -32,6 +32,7 @@
 // enables autocompletion on multiple tokens. This is most 
 // useful when one of the tokens is \n (a newline), as it 
 // allows smart autocompletion after linebreaks.
+if(colorPickerLibAdded == false) {
 
 var Autocompleter = {}
 Autocompleter.Base = function() {};
@@ -768,3 +769,5 @@ Form.Element.DelayedObserver.prototype = {
     this.callback(this.element, $F(this.element));
   }
 };
+
+}

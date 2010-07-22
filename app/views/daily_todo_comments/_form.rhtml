@@ -8,8 +8,6 @@
           :controller => 'daily_todos',
           :action     => 'one_user',
           :user_id    => @comment.daily_todo.user_id} %>
+    <%= wikitoolbar_for('daily_todo_comment_body') %>
   </div>
 <% end %> 
-
-<%= add_color_picker_lib %>
-<%= wikitoolbar_with_color_for('daily_todo_comment_body', 'jstoolbar_comment_body' ,'color_button_comment_body') %>

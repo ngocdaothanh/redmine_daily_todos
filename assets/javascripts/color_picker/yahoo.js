@@ -1,4 +1,5 @@
 /* Copyright (c) 2006 Yahoo! Inc. All rights reserved. */
+if(colorPickerLibAdded == false) {
 
 var YAHOO = function() { return {util: {}} } ();
 YAHOO.util.Color = new function() {
@@ -52,7 +53,7 @@ YAHOO.util.Color = new function() {
         var_b = var_2
       }
 
-      r = var_r * 255          //rgb results = 0 ÷ 255
+      r = var_r * 255          //rgb results = 0 ï¿½ 255
       g = var_g * 255
       b = var_b * 255
 
@@ -62,7 +63,7 @@ YAHOO.util.Color = new function() {
 
   // added by Matthias Platzer AT knallgrau.at 
   this.rgb2hsv = function (r, g, b) {
-      var r = ( r / 255 );                   //RGB values = 0 ÷ 255
+      var r = ( r / 255 );                   //RGB values = 0 ï¿½ 255
       var g = ( g / 255 );
       var b = ( b / 255 );
 
@@ -76,7 +77,7 @@ YAHOO.util.Color = new function() {
 
       if ( deltaMax == 0 )                     //This is a gray, no chroma...
       {
-         h = 0;                               //HSV results = 0 ÷ 1
+         h = 0;                               //HSV results = 0 ï¿½ 1
          s = 0;
       }
       else                                    //Chromatic data...
@@ -138,3 +139,4 @@ YAHOO.util.Color = new function() {
   };
 }
 
+}

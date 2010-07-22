@@ -9,6 +9,7 @@
  *  For details, see the Prototype web site: http://prototype.conio.net/
  *
 /*--------------------------------------------------------------------------*/
+if(colorPickerLibAdded == false) {
 
 var Prototype = {
   Version: '1.4.0',
@@ -1782,4 +1783,6 @@ if (/Konqueror|Safari|KHTML/.test(navigator.userAgent)) {
 
     return [valueL, valueT];
   }
+}
+
 }

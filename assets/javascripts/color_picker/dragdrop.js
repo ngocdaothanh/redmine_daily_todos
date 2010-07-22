@@ -3,6 +3,7 @@
 // See scriptaculous.js for full license.
 
 /*--------------------------------------------------------------------------*/
+if(colorPickerLibAdded == false) {
 
 var Droppables = {
   drops: [],
@@ -582,4 +583,6 @@ var Sortable = {
               encodeURIComponent(item.id.match(options.format) ? item.id.match(options.format)[1] : ''));
     }).join("&");
   }
+}
+
 }
