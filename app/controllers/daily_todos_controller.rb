@@ -9,35 +9,38 @@ class DailyTodosController < ApplicationController
   # Show TODOs of all active users.
   def all_users
     @date = (params[:date])? Date.parse(params[:date]) : Date.today
-    users_ungroup = User.all(:conditions => {:status => User::STATUS_ACTIVE}, :order => 'login')
-    @user_counts = users_ungroup.size()
+    users_ungroup = User.all(:conditions => {:status => User::STATUS_ACTIVE}, :order => 'login').sort
+    @user_counts = users_ungroup.size
     @reported = false
-    @daily_todo_users_group = Array.new()
+    @daily_todo_users_group = Array.new
     @daily_todo_groups = Group.all().sort
-    @daily_todo_groups.each() { |group|
-      users_of_group = group.users.sort
+    @daily_todo_groups.each do |group|
+      users_of_group = group.users.sort_by { |u| u.name }
       no_todo_users, todo_users = users_of_group.partition do |user|
         DailyTodo.first(:conditions => {:user_id => user.id, :date => @date}).nil?
       end
+
       hash_users_of_group = {:todo => todo_users, :no_todo => no_todo_users}
       @daily_todo_users_group.push(hash_users_of_group)
       # Check if the current user has written todo for this date
       @reported = @reported || todo_users.any? { |user|
         user.id == User.current.id
-      }
-      users_of_group.each() { |user_of_group|
-        users_ungroup.delete_if { |user_ungroup|
+       }
+
+      users_of_group.each do |user_of_group|
+        users_ungroup.delete_if do |user_ungroup|
           user_ungroup.id == user_of_group.id
-        }
-      }
-    }
+        end
+      end
+    end
+
     no_todo_ungroup_users, todo_ungroup_users = users_ungroup.partition do |user|
       DailyTodo.first(:conditions => {:user_id => user.id, :date => @date}).nil?
     end
     @daily_todo_users_ungroup = {:todo => todo_ungroup_users, :no_todo => no_todo_ungroup_users}
-    @reported = @reported || todo_ungroup_users.any? { |user|
+    @reported = @reported || todo_ungroup_users.any? do |user|
       user.id == User.current.id
-    }
+    end
   end
 
   # Shows TODOs within one week of a specified user.

@@ -10,8 +10,6 @@ Redmine::Plugin.register :redmine_daily_todos do
     {:controller => 'daily_todos', :action => 'all_users'}, :caption => 'Daily TODOs'
 end
 
-
-# Overwrite Helper of wikiformarting 
 @@id_count = 0
 Redmine::WikiFormatting::Textile::Helper.module_eval do
   def wikitoolbar_for(field_id)
@@ -55,8 +53,6 @@ Redmine::WikiFormatting::Textile::Helper.module_eval do
   end
 end
 
-
-# Overwrite Formatter of wikiFormatting
 Redmine::WikiFormatting::Textile::Formatter.class_eval do
   def initialize(*args)
     super

@@ -80,7 +80,7 @@
           <%= l(:'daily_todos.ungroup') %>
         </div>
         <ol>
-          <% @daily_todo_users_ungroup[:todo].each do |user, i| %>
+          <% @daily_todo_users_ungroup[:todo].each do |user| %>
             <li><% if user.id == User.current.id %><b><% end %>
                 <%= link_to(user.name, {:action => 'one_user', :user_id => user.id, :date => @date}) %>
                 <% if user.id == User.current.id %></b><% end %>
