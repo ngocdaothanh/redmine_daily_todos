@@ -33,15 +33,7 @@ Redmine::WikiFormatting::Textile::Helper.module_eval do
   end
 
   def add_color_picker_lib()
-    javascript_include_tag('color_picker/prototype', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/scriptaculous', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/builder', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/effects', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/dragdrop', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/controls', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/slider', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/yahoo', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('color_picker/colorpicker', :plugin => 'redmine_daily_todos') +
+    javascript_include_tag('color_picker/color_picker', :plugin => 'redmine_daily_todos') +
       javascript_tag("colorPickerLibAdded=true;")
   end
 

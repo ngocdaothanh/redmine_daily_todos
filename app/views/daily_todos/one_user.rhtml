@@ -16,10 +16,17 @@
   <% @todos.each do |todo| %>
     <hr />
 
+    <% if todo.date == @date %>
+      <a name="today"></a>
+    <%end%>
+
     <div <% if todo.date == @date %>
-        style="background-color: #FEFEF3;"
+        style="border-style: solid;border-width: 1px;
+        border-color: #9fcf9f;
+        background-color: #f0fff0;"
       <%end%> >
-        <% if todo.lunch %>
+
+      <% if todo.lunch %>
         <p>
           <b><%= format_date_with_weekday(todo.date) %></b>
           <% if @user == User.current %>
@@ -131,3 +138,5 @@
     </div>
   <% end %>
 </div>
+
+<%= javascript_tag("window.location.hash='today';") %>
