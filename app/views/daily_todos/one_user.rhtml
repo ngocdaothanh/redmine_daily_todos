@@ -20,15 +20,11 @@
       <a name="today"></a>
     <%end%>
 
-    <div <% if todo.date == @date %>
-        style="border-style: solid;border-width: 1px;
-        border-color: #9fcf9f;
-        background-color: #f0fff0;"
-      <%end%> >
+    <div>
 
       <% if todo.lunch %>
         <p>
-          <b><%= format_date_with_weekday(todo.date) %></b>
+          <b <% if todo.date == @date %>style="color: #FF0000;"<%end%>><%= format_date_with_weekday(todo.date) %></b>
           <% if @user == User.current %>
             <b>
               <%= link_to_remote(
