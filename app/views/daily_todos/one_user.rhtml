@@ -24,7 +24,7 @@
 
       <% if todo.lunch %>
         <p>
-          <b <% if todo.date == @date %>style="color: #FF0000;"<%end%>><%= format_date_with_weekday(todo.date) %></b>
+          <b <% if todo.date == Date.today %>style="color: #FF0000;"<%end%>><%= format_date_with_weekday(todo.date) %></b>
           <% if @user == User.current %>
             <b>
               <%= link_to_remote(
