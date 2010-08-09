@@ -24,7 +24,7 @@
 
       <% if todo.lunch %>
         <p>
-          <b <% if todo.date == Date.today %>style="color: #FF0000;"<%end%>><%= format_date_with_weekday(todo.date) %></b>
+         <b <% if todo.date == Date.today %>style="color: #990000;"<%end%>><%= format_date_with_weekday(todo.date) %></b>
           <% if @user == User.current %>
             <b>
               <%= link_to_remote(
@@ -118,14 +118,14 @@
 
       <% else %>
         <% if @user == User.current %>
-          <b><%= format_date_with_weekday(todo.date) %>:</b>
+          <b <% if todo.date == Date.today %>style="color: #990000;"<%end%>><%= format_date_with_weekday(todo.date) %>:</b>
           <%= link_to_remote(
             l(:'daily_todos.create_link'),
             :url => {:action => 'create_todo', :date => todo.date.to_s}) %>
           <br />
           <br />
         <% else %>
-          <b> <%= format_date_with_weekday(todo.date) %>:
+          <b <% if todo.date == Date.today %>style="color: #990000;"<%end%>> <%= format_date_with_weekday(todo.date) %>:
           </b>
           <%= l(:'daily_todos.no_todo') %>
           <br /><br />
