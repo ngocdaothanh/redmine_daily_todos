@@ -14,8 +14,7 @@ end
 Redmine::WikiFormatting::Textile::Helper.module_eval do
   def wikitoolbar_for(field_id)
     @@id_count = (@@id_count + 1) % 1000
-    jstoolbar_obj_name = "jstoolbar_" + @@id_count.to_s
-    color_picker_text_id = "color_picker" + @@id_count.to_s
+    wiki_name = "wikiToolbar_" + @@id_count.to_s
 
     url = "#{Redmine::Utils.relative_url_root}/help/wiki_syntax.html"
 
@@ -23,25 +22,19 @@ Redmine::WikiFormatting::Textile::Helper.module_eval do
       link_to(l(:label_help), url,
       :onclick => "window.open(\"#{ url }\", \"\", \"resizable=yes, location=no, width=300, height=640, menubar=no, status=no, scrollbars=yes\"); return false;")
 
-    add_color_picker_lib() +
-      javascript_tag("var colorPickerTextId = '#{color_picker_text_id}';") +
-      javascript_include_tag('jstoolbar/jstoolbar', :plugin => 'redmine_daily_todos') +
+    javascript_tag("var currentWikiName = '#{wiki_name}';") +
+    javascript_include_tag('jstoolbar/jstoolbar', :plugin => 'redmine_daily_todos') +
       javascript_include_tag('jstoolbar/textile', :plugin => 'redmine_daily_todos') +
       javascript_include_tag("jstoolbar/lang/jstoolbar-#{current_language.to_s.downcase}", :plugin => 'redmine_daily_todos') +
-      javascript_tag("var #{jstoolbar_obj_name} = new jsToolBar($('#{field_id}')); #{jstoolbar_obj_name}.setColorPickerTextId('#{color_picker_text_id}') ; #{jstoolbar_obj_name}.setHelpLink('#{help_link}'); #{jstoolbar_obj_name}.draw();") +
-      javascript_tag("var #{jstoolbar_obj_name}_colorPicker = new Control.ColorPicker('#{color_picker_text_id}', #{jstoolbar_obj_name}, { IMAGE_BASE : '/plugin_assets/redmine_daily_todos/images/color_picker/' });")
-  end
+      javascript_tag("var #{wiki_name} = new jsToolBar($('#{field_id}'));  #{wiki_name}.setHelpLink('#{help_link}'); #{wiki_name}.setWikiName('#{wiki_name}'); #{wiki_name}.draw();") +
+    javascript_tag("jscolor.install( #{wiki_name});")
 
-  def add_color_picker_lib()
-    javascript_include_tag('color_picker/color_picker', :plugin => 'redmine_daily_todos') +
-      javascript_tag("colorPickerLibAdded=true;")
   end
 
   def heads_for_wiki_formatter
     stylesheet_link_tag('jstoolbar') +
-      stylesheet_link_tag('jstoolbar', :plugin => 'redmine_daily_todos') +
-      stylesheet_link_tag('colorpicker', :plugin => 'redmine_daily_todos') +
-      javascript_tag("var colorPickerLibAdded=false;")
+      stylesheet_link_tag('jstoolbar', :plugin => 'redmine_daily_todos')+
+      javascript_include_tag('jscolor', :plugin => 'redmine_daily_todos')
   end
 end
 

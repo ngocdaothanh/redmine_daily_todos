@@ -224,8 +224,9 @@ jsToolBar.prototype.elements.img = {
 }
 
 //======= Add color picker button =======//
+//var currentWikiName ='zzz';
 jsToolBar.prototype.elements.colorPickerButton = {
     type: 'colorButton',
-    title: 'Color',
-    id: colorPickerTextId
+    title: 'Color'
+    ,wiki_name: currentWikiName
 }
