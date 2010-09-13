@@ -35,11 +35,43 @@ function setCurrentTime() {
    
    
 }
+
+function addOption(selectbox,text,value )
+{
+var optn = document.createElement("OPTION");
+optn.text = text;
+optn.value = value;
+selectbox.options.add(optn);
+}
+
+
 function addNewChar() {
-  var opt = document.createElement("option");
-    opt.text = '--';
-    opt.value = '--';
-   $("daily_todo_entry_begin_4i").options.add(opt);
+  var arr_entry_begin = new Array();
+  var arr_entry_end = new Array();
+  for(var i=0; i< $("daily_todo_entry_begin_4i").length; i++) {
+      arr_entry_begin.push($("daily_todo_entry_begin_4i").options[i].value);
+  }
+  while($("daily_todo_entry_begin_4i").length > 0)
+  {
+   $("daily_todo_entry_begin_4i").remove(0);
+  }
+  addOption($("daily_todo_entry_begin_4i"), "--", "--");
+  for(var i=0; i< arr_entry_begin.length; i++) {
+    addOption($("daily_todo_entry_begin_4i"),arr_entry_begin[i],arr_entry_begin[i]);
+  }
+  for(var i=0; i< $("daily_todo_entry_begin_5i").length; i++) {
+      if ($("daily_todo_entry_begin_5i").options[i].value % 5 == 0) {
+        arr_entry_end.push($("daily_todo_entry_begin_5i").options[i].value);
+      }
+  }
+  while($("daily_todo_entry_begin_5i").length > 0)
+  {
+   $("daily_todo_entry_begin_5i").remove(0);
+  }
+ for(var i=0; i< arr_entry_end.length; i++) {
+    addOption($("daily_todo_entry_begin_5i"),arr_entry_end[i],arr_entry_end[i]);
+  }
+  setCurrentTime();
 }
 function setEnableTime() {
   var val = $("daily_todo_entry_begin_4i").value;
