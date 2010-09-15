@@ -174,7 +174,7 @@ jsColorButton.prototype.draw = function() {
     if (!this.scope) return null;
     var button = document.createElement('span');
     button.setAttribute('style', 'bgcolor:#FF0000;');
-    button.innerHTML = "<input type='button' onclick='wiki_clicked_name=\"" + this.wiki_name + "\";' class='color' value='' style='margin-right:6px;width:24px;height:24px;padding:4px;border-style:solid;border-width:1px;border-color:#ddd;background-color:#f7f7f7;background-position:50% 50%;background-repeat:no-repeat;background-image: url(arrow.gif)'/>";
+    button.innerHTML = "<input type='button' onclick='wiki_clicked_name=\"" + this.wiki_name + "\";' class='color' value='' style='margin-right:6px;width:24px;height:24px;padding:4px;border-style:solid;border-width:1px;border-color:#ddd;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;'/>";
     button.setAttribute('id', this.id);
     button.tabIndex = 200;
 

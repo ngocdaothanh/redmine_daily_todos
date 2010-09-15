@@ -18,13 +18,12 @@ var jscolor = {
     preloading : true, // use image preloading?
     pickColor: '',
     wikiToolbars: new Array(),
+    color_ok: false,
 
     //Hak47 updated!!
     install : function(wk) {
         jscolor.addEvent(window, 'load', jscolor.init);
-        //        jscolor.wikiToolbar = wk;
         jscolor.wikiToolbars.push(wk);
-    //        alert("^^" + jscolor.wikiToolbars[0]);
     },
 
 
@@ -365,6 +364,9 @@ var jscolor = {
         this.pickerInsetColor = 'ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow'; // CSS color
         this.pickerZIndex = 10000;
 
+        //Hak47 updated!!
+        this.styleElement.style.backgroundImage="url('" + jscolor.getDir() + "../images/bt_color.png')";
+
 
         for(var p in prop) {
             if(prop.hasOwnProperty(p)) {
@@ -377,12 +379,13 @@ var jscolor = {
             if(isPickerOwner()) {
                 removePicker();
                 //Hak47 updated!!
-                for(var i = 0; i< jscolor.wikiToolbars.length; i++) {
-                    //alert(jscolor.wikiToolbars[i].getColorPickerTextId());
-                    if(jscolor.wikiToolbars[i].getWikiName() == wiki_clicked_name) {
-                        jscolor.wikiToolbars[i].encloseSelection(' %','&nbsp;% ',function(str) {
-                            return "{color:#" + pickColor + "}" + str;
-                        });
+                if(jscolor.color_ok) {
+                    for(var i = 0; i< jscolor.wikiToolbars.length; i++) {
+                        if(jscolor.wikiToolbars[i].getWikiName() == wiki_clicked_name) {
+                            jscolor.wikiToolbars[i].encloseSelection(' %','&nbsp;% ',function(str) {
+                                return "{color:#" + pickColor + "}" + str;
+                            });
+                        }
                     }
                 }
             }
@@ -390,6 +393,7 @@ var jscolor = {
 
 
         this.showPicker = function() {
+           
             if(!isPickerOwner()) {
                 var tp = jscolor.getElementPos(target); // target pos
                 var ts = jscolor.getElementSize(target); // target size
@@ -474,7 +478,7 @@ var jscolor = {
                 //->ko lam buoc nay
                 //
                 // Hak47 updated!!
-                //valueElement.value = value;
+                //valueElement.style.background="background-image: url('arrow.gif') no-repeat";
                 pickColor = value;
             }
             if(!(flags & leaveStyle) && styleElement) {
@@ -607,6 +611,8 @@ var jscolor = {
 
 
         function drawPicker(x, y) {
+            //Hak47 updated!!
+            jscolor.color_ok=false;
             if(!jscolor.picker) {
                 jscolor.picker = {
                     box : document.createElement('div'),
@@ -616,6 +622,9 @@ var jscolor = {
                     padM : document.createElement('div'),
                     sld : document.createElement('div'),
                     sldB : document.createElement('div'),
+                    //Hak47 updated!!
+                    btnOk : document.createElement('div'),
+
                     sldM : document.createElement('div')
                 };
                 for(var i=0,segSize=4; i<jscolor.images.sld[1]; i+=segSize) {
@@ -632,9 +641,20 @@ var jscolor = {
                 jscolor.picker.box.appendChild(jscolor.picker.padB);
                 jscolor.picker.box.appendChild(jscolor.picker.padM);
                 jscolor.picker.boxB.appendChild(jscolor.picker.box);
+                //Hak47 updated!!
+                jscolor.picker.boxB.appendChild(jscolor.picker.btnOk);
             }
 
             var p = jscolor.picker;
+
+            //Hak47 updated!!
+            p.btnOk.style.textAlign = 'center';
+            p.btnOk.innerHTML = "<input type='button' style='width:" + (4*THIS.pickerInset + 2*THIS.pickerFace + jscolor.images.pad[0] + 2*jscolor.images.arrow[0] + jscolor.images.sld[0]) + "px;' value='OK' />";
+            p.btnOk.onmousedown = function(e) {
+                jscolor.color_ok=true;
+                blurTarget();
+                jscolor.color_ok=false;
+            };
 
             // recompute controls positions
             posPad = [
