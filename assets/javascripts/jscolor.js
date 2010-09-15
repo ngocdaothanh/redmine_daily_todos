@@ -16,11 +16,16 @@ var jscolor = {
     bindClass : 'color', // class name
     binding : true, // automatic binding via <input class="...">
     preloading : true, // use image preloading?
+    
+    //Hak47 updated!!
     pickColor: '',
     wikiToolbars: new Array(),
     color_ok: false,
 
     //Hak47 updated!!
+    //    install : function() {
+    //        jscolor.addEvent(window, 'load', jscolor.init);
+    //    },
     install : function(wk) {
         jscolor.addEvent(window, 'load', jscolor.init);
         jscolor.wikiToolbars.push(wk);
@@ -393,7 +398,6 @@ var jscolor = {
 
 
         this.showPicker = function() {
-           
             if(!isPickerOwner()) {
                 var tp = jscolor.getElementPos(target); // target pos
                 var ts = jscolor.getElementSize(target); // target size
@@ -478,8 +482,8 @@ var jscolor = {
                 //->ko lam buoc nay
                 //
                 // Hak47 updated!!
-                //valueElement.style.background="background-image: url('arrow.gif') no-repeat";
                 pickColor = value;
+            
             }
             if(!(flags & leaveStyle) && styleElement) {
                 styleElement.style.backgroundColor =
@@ -613,6 +617,7 @@ var jscolor = {
         function drawPicker(x, y) {
             //Hak47 updated!!
             jscolor.color_ok=false;
+
             if(!jscolor.picker) {
                 jscolor.picker = {
                     box : document.createElement('div'),
@@ -641,6 +646,7 @@ var jscolor = {
                 jscolor.picker.box.appendChild(jscolor.picker.padB);
                 jscolor.picker.box.appendChild(jscolor.picker.padM);
                 jscolor.picker.boxB.appendChild(jscolor.picker.box);
+
                 //Hak47 updated!!
                 jscolor.picker.boxB.appendChild(jscolor.picker.btnOk);
             }
@@ -983,4 +989,7 @@ var jscolor = {
     }
 
 };
+
+//Hak47 updated!!
 //jscolor.install(wikiToolbar);
+//jscolor.install();
