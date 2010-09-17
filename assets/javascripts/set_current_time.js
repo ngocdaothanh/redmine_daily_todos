@@ -48,6 +48,7 @@ selectbox.options.add(optn);
 function addNewChar() {
   var arr_entry_begin = new Array();
   var arr_entry_end = new Array();
+  var index_entry_begin_4i = $("daily_todo_entry_begin_4i").selectedIndex;
   for(var i=0; i< $("daily_todo_entry_begin_4i").length; i++) {
       arr_entry_begin.push($("daily_todo_entry_begin_4i").options[i].value);
   }
@@ -71,7 +72,7 @@ function addNewChar() {
  for(var i=0; i< arr_entry_end.length; i++) {
     addOption($("daily_todo_entry_begin_5i"),arr_entry_end[i],arr_entry_end[i]);
   }
-  setCurrentTime();
+  $("daily_todo_entry_begin_4i").selectedIndex = index_entry_begin_4i + 1  ;
 }
 function setEnableTime() {
   var val = $("daily_todo_entry_begin_4i").value;
