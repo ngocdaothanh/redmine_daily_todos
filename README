@@ -8,9 +8,17 @@ The differents between daily TODOs and normal Redmine issues (tickets):
 The differents between daily TODOs and normal TODO:
 * You write daily TODOs everyday
 
-To install:
+For more information about Redmine's plugin:
+http://www.redmine.org/wiki/redmine/Plugins
+
+== Install
+
 * Put this plugin to Redmine's vendor/plugins directory
 * Run rake db:migrate_plugins to create DB table for this plugin
 
-For more information about Redmine's plugin:
-http://www.redmine.org/wiki/redmine/Plugins
+TODO entries that have both begin time and end time of 00:00 will be slided to
+the next day. You need to install a crontab that does the sliding job.
+
+For example in /etc/crontab:
+
+10 0 * * * /opt/ruby-1.8.7-p249/bin/ruby /var/www/redmine/script/runner /var/www/redmine/vendor/plugins/redmine_daily_todos/script/crontab_future_daily_todo.rb

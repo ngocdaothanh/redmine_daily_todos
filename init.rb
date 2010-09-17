@@ -19,22 +19,22 @@ Redmine::WikiFormatting::Textile::Helper.module_eval do
     url = "#{Redmine::Utils.relative_url_root}/help/wiki_syntax.html"
 
     help_link = l(:setting_text_formatting) + ': ' +
-      link_to(l(:label_help), url,
+    link_to(l(:label_help), url,
       :onclick => "window.open(\"#{ url }\", \"\", \"resizable=yes, location=no, width=300, height=640, menubar=no, status=no, scrollbars=yes\"); return false;")
 
     javascript_tag("var currentWikiName = '#{wiki_name}';") +
     javascript_include_tag('jstoolbar/jstoolbar', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag('jstoolbar/textile', :plugin => 'redmine_daily_todos') +
-      javascript_include_tag("jstoolbar/lang/jstoolbar-#{current_language.to_s.downcase}", :plugin => 'redmine_daily_todos') +
-      javascript_tag("var #{wiki_name} = new jsToolBar($('#{field_id}'));  #{wiki_name}.setHelpLink('#{help_link}'); #{wiki_name}.setWikiName('#{wiki_name}'); #{wiki_name}.draw();") +
+    javascript_include_tag('jstoolbar/textile', :plugin => 'redmine_daily_todos') +
+    javascript_include_tag("jstoolbar/lang/jstoolbar-#{current_language.to_s.downcase}", :plugin => 'redmine_daily_todos') +
+    javascript_tag("var #{wiki_name} = new jsToolBar($('#{field_id}'));  #{wiki_name}.setHelpLink('#{help_link}'); #{wiki_name}.setWikiName('#{wiki_name}'); #{wiki_name}.draw();") +
     javascript_tag("jscolor.install( #{wiki_name});")
 
   end
 
   def heads_for_wiki_formatter
     stylesheet_link_tag('jstoolbar') +
-      stylesheet_link_tag('jstoolbar', :plugin => 'redmine_daily_todos')+
-      javascript_include_tag('jscolor', :plugin => 'redmine_daily_todos')
+    stylesheet_link_tag('jstoolbar', :plugin => 'redmine_daily_todos')+
+    javascript_include_tag('jscolor', :plugin => 'redmine_daily_todos')
   end
 end
 
