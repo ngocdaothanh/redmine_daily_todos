@@ -11,8 +11,8 @@
       </tr>
       <tr>
         <td align="center" style="vertical-align:middle;">
-          <%= f.time_select(:begin, {},  {:onchange => "setEnableTime();"}) %>
-          <%= f.time_select(:end, :minute_step => 5) %>
+          <%= f.time_select(:begin, :minute_step => 5,  :default => { :hour => 0, :minute => 0}) %>
+          <%= f.time_select(:end, :minute_step => 5,  :default => { :hour => 0, :minute => 0}) %>
         </td>
         <td><%= f.text_area(:plan, :style => 'width: 98%', :rows => 10, :class => 'wiki-edit') %></td>
         <td><%= f.text_area(:result, :style => 'width: 98%', :rows => 10, :class => 'wiki-edit') %></td>
