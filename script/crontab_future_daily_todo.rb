@@ -1,4 +1,6 @@
 today = Date.today
+time = Time.now
+
 unfinished_entries = DailyTodoEntry.all(:conditions => {:begin => '00:00', :end => '00:00'})
 
 # Only slide past entries, not future entries
@@ -8,7 +10,7 @@ unfinished_entries.each do |entry|
 
   if todo.date < today
     today_todo = DailyTodo.first(:conditions => {:user_id => todo.user_id , :date => today})
-    today_todo = DailyTodo.new(:user_id => todo.user_id, :date => date) if today_todo.nil?
+    today_todo = DailyTodo.create(:user_id => todo.user_id, :date => today, :lunch => time) if today_todo.nil?
     
     entry.update_attributes(:daily_todo_id => today_todo.id)
   end
