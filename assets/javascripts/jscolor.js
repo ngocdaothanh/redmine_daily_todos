@@ -21,6 +21,7 @@ var jscolor = {
     pickColor: '',
     wikiToolbars: new Array(),
     color_ok: false,
+    is_showing: false,
 
     //Hak47 updated!!
     //    install : function() {
@@ -387,9 +388,7 @@ var jscolor = {
                 if(jscolor.color_ok) {
                     for(var i = 0; i< jscolor.wikiToolbars.length; i++) {
                         if(jscolor.wikiToolbars[i].getWikiName() == wiki_clicked_name) {
-                            jscolor.wikiToolbars[i].encloseSelection(' %','&nbsp;% ',function(str) {
-                                return "{color:#" + pickColor + "}" + str;
-                            });
+                            jscolor.wikiToolbars[i].hak47_approveColor("%{color:#" + pickColor + "}","%");
                         }
                     }
                 }
@@ -399,6 +398,7 @@ var jscolor = {
 
         this.showPicker = function() {
             if(!isPickerOwner()) {
+                jscolor.is_showing = true;
                 var tp = jscolor.getElementPos(target); // target pos
                 var ts = jscolor.getElementSize(target); // target size
                 var vp = jscolor.getViewPos(); // view pos
@@ -609,6 +609,7 @@ var jscolor = {
 
 
         function removePicker() {
+            jscolor.is_showing = false;
             delete jscolor.picker.owner;
             document.getElementsByTagName('body')[0].removeChild(jscolor.picker.boxB);
         }
@@ -937,9 +938,23 @@ var jscolor = {
         leavePad = 1<<2,
         leaveSld = 1<<3;
 
+        //Hak47 updated!!
+        jscolor.addEvent(target, 'click', function() {
+            if(THIS.pickerOnfocus) {
+                THIS.showPicker();
+            }
+        });
+
         // target
         jscolor.addEvent(target, 'focus', function() {
             if(THIS.pickerOnfocus) {
+                //Hak47 updated!!
+                for(var i = 0; i< jscolor.wikiToolbars.length; i++) {
+                    if(jscolor.wikiToolbars[i].getWikiName() == wiki_clicked_name) {
+                        jscolor.wikiToolbars[i].hak47_4IE(jscolor);
+                    }
+                }
+
                 THIS.showPicker();
             }
         });

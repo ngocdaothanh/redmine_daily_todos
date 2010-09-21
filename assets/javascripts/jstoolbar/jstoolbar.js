@@ -22,6 +22,10 @@
 
 /* Modified by JP LANG for textile formatting */
 
+var jsTextSpecial = " !%)#*%";
+var jsTextSelectingText = "";
+var jsTextReplaceTemp = "";
+
 function jsToolBar(textarea) {
     if (!document.createElement) {
         return;
@@ -175,7 +179,7 @@ jsColorButton.prototype.draw = function() {
     var button = document.createElement('span');
     button.setAttribute('style', 'bgcolor:#FF0000;');
 //    button.innerHTML = "<input type='button' onclick='wiki_clicked_name=\"" + this.wiki_name + "\";' class='color' value='' style='margin-right:6px;width:24px;height:24px;padding:4px;border-style:solid;border-width:1px;border-color:#ddd;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;'/>";
-    button.innerHTML = "<input class='color' readonly='true' onclick='wiki_clicked_name=\"" + this.wiki_name + "\";' value='' style='width:22px;height:22px;border-style:solid;border-width:1px;border-color:#ddd;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;cursor:default;'/>";
+    button.innerHTML = "<input type='button' class='color' onfocus='wiki_clicked_name=\"" + this.wiki_name + "\";' onclick='wiki_clicked_name=\"" + this.wiki_name + "\";' value='' style='width:22px;height:22px;border-style:solid;border-width:1px;border-color:#ddd;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;cursor:default;'/>";
     button.setAttribute('id', this.id);
     button.tabIndex = 200;
 
@@ -385,6 +389,59 @@ jsToolBar.prototype = {
             range.select();
         //			this.textarea.caretPos -= suffix.length;
         } else if (typeof(this.textarea["setSelectionRange"]) != "undefined") {
+            this.textarea.value = this.textarea.value.substring(0, start) + subst +
+            this.textarea.value.substring(end);
+            if (sel) {
+                this.textarea.setSelectionRange(start + subst.length, start + subst.length);
+            } else {
+                this.textarea.setSelectionRange(start + prefix.length, start + prefix.length);
+            }
+            this.textarea.scrollTop = scrollPos;
+        }
+    },
+
+    hak47_4IE: function(jscolor) {
+        if (typeof(document["selection"]) != "undefined" && !jscolor.is_showing ) {
+//            alert("IE ");
+            var origin_text = this.textarea.value;
+            jsTextSelectingText = document.selection.createRange().text;
+            document.selection.createRange().text = jsTextSpecial;
+            jsTextReplaceTemp = this.textarea.value;
+            this.textarea.value = origin_text;
+        }
+    },
+
+    hak47_approveColor: function(prefix, suffix) {
+        this.textarea.focus();
+
+        prefix = prefix || '';
+        suffix = suffix || '';
+
+        var start, end, sel, scrollPos, subst, res;
+
+        if (typeof(document["selection"]) != "undefined") {
+            //IE
+            if (jsTextSelectingText.match(/ $/)) { // exclude ending space char, if any
+                jsTextSelectingText = jsTextSelectingText.substring(0, jsTextSelectingText.length - 1);
+                suffix = suffix + " ";
+            }
+            jsTextReplaceTemp = jsTextReplaceTemp.replace(jsTextSpecial, prefix + jsTextSelectingText + suffix);
+            this.textarea.value = jsTextReplaceTemp;
+        } else if (typeof(this.textarea["setSelectionRange"]) != "undefined") {
+            start = this.textarea.selectionStart;
+            end = this.textarea.selectionEnd;
+            scrollPos = this.textarea.scrollTop;
+            sel = this.textarea.value.substring(start, end);
+
+            if (sel.match(/ $/)) { // exclude ending space char, if any
+                sel = sel.substring(0, sel.length - 1);
+                suffix = suffix + " ";
+            }
+
+            res = sel;
+
+            subst = prefix + res + suffix;
+            
             this.textarea.value = this.textarea.value.substring(0, start) + subst +
             this.textarea.value.substring(end);
             if (sel) {
