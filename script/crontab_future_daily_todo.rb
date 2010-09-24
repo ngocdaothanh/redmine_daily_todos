@@ -15,3 +15,7 @@ unfinished_entries.each do |entry|
     entry.update_attributes(:daily_todo_id => today_todo.id)
   end
 end
+
+DailyTodo.destroy_all("id not in (select distinct daily_todo_id from daily_todo_entries)
+  and id not in (select distinct daily_todo_id from daily_todo_comments)"
+)

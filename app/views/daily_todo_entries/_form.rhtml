@@ -22,7 +22,7 @@
     </table>
   </div>
 
-  <%= submit_tag l(:'daily_todos.button_save') %>
+  <%= submit_tag l((@entry.new_record?)?:button_create: :button_save) %>
   <% if @entry.new_record? %>
     <%= submit_tag l(:'daily_todos.button_create_and_continue') %>
     <%= link_to l(:'daily_todos.cancel'), {
