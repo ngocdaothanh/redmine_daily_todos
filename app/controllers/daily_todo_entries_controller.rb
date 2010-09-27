@@ -26,7 +26,7 @@ class DailyTodoEntriesController < ApplicationController
       end
 
       if @entry.save
-        if params['commit'] == l(:'daily_todos.button_save')
+        if params['commit'] == l(:button_create)
           flash[:notice] = l(:'daily_todos.entry.entry_create')
           redirect_to(
             :controller => 'daily_todos',
