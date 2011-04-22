@@ -22,7 +22,8 @@ class DailyTodoEntriesController < ApplicationController
         redirect_to(
           :controller => 'daily_todos',
           :action     => 'one_user',
-          :user_id    => User.current.id)   
+          :user_id    => User.current.id)
+        return
       end
 
       if @entry.save

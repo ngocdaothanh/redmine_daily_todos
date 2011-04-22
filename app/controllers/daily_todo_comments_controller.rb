@@ -49,7 +49,7 @@ class DailyTodoCommentsController < ApplicationController
         phr = params[:daily_todo_comment]  
         @comment.body = phr[:body]
         if @comment.save
-           flash[:notice] = l(:'daily_todos.comment.comment_update')
+          flash[:notice] = l(:'daily_todos.comment.comment_update')
           redirect_to(
             :controller => 'daily_todos',
             :action     => 'one_user',
